@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+      
+      
+      
+	<ui:define name="title">
+		Proveedores
+	</ui:define>
+    
+    <ui:define name="content">
+		<h:form>
+			<p:dataTable id="dataSource" value="${providerList.list}" var="v" editable="true" emptyMessage="Lista vacía"
+				rowKey="#{v.id}" paginator="true" rowsPerPageTemplate="#{Constants.rowsPerPage}" rows="#{Constants.rows}" filteredValue="#{providerList.filtered}">
+				<!-- 
+				<p:ajax event="cellEdit" listener="#{providerList.onCellEdit}" />
+				-->
+				<p:ajax event="rowEdit" listener="#{providerList.onRowEdit}" />
+				
+				<p:column headerText="Nombre" width="*" filterBy="#{v.name}" filterMatchMode="contains">
+					<p:cellEditor>
+						<f:facet name="output"><h:outputText value="#{v.name}" /></f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{v.name}" style="width:100%" required="true" maxlength="#{Constants.MAX_TEXT_INPUT}" requiredMessage="Debes escribir el nombre del proveedor"/>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="Teléfono" width="120">
+					<p:cellEditor>
+						<f:facet name="output"><h:outputText value="#{v.phone}" /></f:facet>
+						<f:facet name="input">
+							<p:inputMask mask="(999) 999-99-99" value="#{v.phone}" style="width:100%" maxlength="10" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="Correo" width="200">
+					<p:cellEditor>
+						<f:facet name="output"><h:outputText value="#{v.mail}" /></f:facet>
+						<f:facet name="input">
+							<p:inputText  value="#{v.mail}" style="width:100%" maxlength="#{Constants.MAX_MAIL_INPUT}"/>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="Entrega">
+					<p:cellEditor>
+						<f:facet name="output"><h:outputText value="#{v.delivery}" /></f:facet>
+						<f:facet name="input">
+							<p:inputTextarea  value="#{v.delivery}" style="width:100%" maxlength="#{Constants.MAX_TEXT_AREA_LEN}"/>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Pago">
+					<p:cellEditor>
+						<f:facet name="output"><h:outputText value="#{v.payment}" /></f:facet>
+						<f:facet name="input">
+							<p:inputTextarea  value="#{v.payment}" style="width:100%" maxlength="#{Constants.MAX_TEXT_AREA_LEN}"/>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Materiales" width="250">
+					<p:cellEditor>
+						<f:facet name="output"><h:outputText value="#{v.list}" /></f:facet>
+						<f:facet name="input">
+							<p:chips  value="#{v.chips}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				
+				<!-- 
+				<p:column headerText="Estatus" width="130">
+					<p:inputSwitch value="#{v.active}" onLabel="Activo" offLabel="Inactivo">
+						<p:ajax listener="#{providerList.onValueChange(v)}" />
+					</p:inputSwitch>
+				</p:column>
+				 -->
+				<p:column headerText="Acciones" width="120">
+					<p:commandButton value="Contactos" icon="ui-icon-person" action="#{providerList.redirect('contacts')}">
+						 <f:setPropertyActionListener value="#{v}" target="#{providerList.selected}" />
+					</p:commandButton>
+					<!-- 
+					<p:commandButton value="Eliminar" icon="ui-icon-trash" onclick="PF('dlg').show();">
+						 <f:setPropertyActionListener value="#{v}" target="#{providerList.selected}" />
+					</p:commandButton>
+					 -->
+				</p:column>
+				<p:column width="40">
+					<p:rowEditor />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+	
+	<ui:define name="buttonbar">
+		<p:button outcome="add" value="Agregar" icon="ui-icon-plusthick"/>
+	</ui:define>
+	
+	<ui:define name="panels">
+		<p:dialog header="Eliminar" widgetVar="dlg" modal="true" closable="false" resizable="false" responsive="true">
+		    
+			<p:panelGrid>
+				<p:row>
+					<p:column colspan="2">¿Realmente quieres eliminar al proveedor?</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:commandButton value="Aceptar" action="#{providerList.delete()}" onclick="PF('dlg').hide();" />
+					</p:column>
+					<p:column>
+						<p:commandButton value="Cancelar" onclick="PF('dlg').hide();" />
+					</p:column>
+				</p:row>
+		    </p:panelGrid>
+		    
+		</p:dialog>
+	</ui:define>	
+</ui:composition>

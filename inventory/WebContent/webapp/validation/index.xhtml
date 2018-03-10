@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+      
+      
+      
+	<ui:define name="title">
+		Validaciones
+	</ui:define>
+    
+    <ui:define name="content">
+		<h:form>
+			<p:treeTable value="#{validationList.root}"  var="v" editable="true" 
+				paginator="true" rows="#{Constants.rows}" rowsPerPageTemplate="#{Constants.rowsPerPage}">
+				
+				<p:ajax event="rowEdit" listener="#{validationList.onRowEdit}" />
+				
+				<p:column headerText="Área" width="250">
+					<p:cellEditor>
+						<f:facet name="output"><h:outputText value="#{validationList.getAreaName(v.idArea)}" /></f:facet>
+						<f:facet name="input">
+							<p:selectOneMenu value="#{v.idArea}">
+								<f:selectItems value="#{validationList.areas}" var="a" itemLabel="#{a.name}" itemValue="#{a.id}"/>
+							</p:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Tope" width="*">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{v.top}">
+								<f:convertNumber type="currency"/>
+							</h:outputText>
+						</f:facet>
+						<f:facet name="input"><p:inputNumber value="#{v.top}" style="width:100%" minValue="0"/></f:facet>
+					</p:cellEditor>
+					<h:outputText value="" />
+				</p:column>
+				<p:column width="40" style="width:40px">
+					<p:rowEditor />
+				</p:column>
+			</p:treeTable>
+		</h:form>
+
+	</ui:define>
+	
+	<ui:define name="buttonbar">
+		<p:button outcome="add" value="Agregar" icon="ui-icon-plusthick"/>
+	</ui:define>	
+
+</ui:composition>

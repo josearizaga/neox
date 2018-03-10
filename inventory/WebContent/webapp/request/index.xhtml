@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+	
+	<ui:define name="title">
+		Pedidos por aprobar
+	</ui:define>
+	
+	<ui:define name="content">
+		<h:form>
+			<p:dataTable value="${materialMovementViewList.materialList}" var="out" filteredValue="#{materialMovementViewList.filteredList}" 
+				sortBy="#{out.materialMovementView.user}" expandableRowGroups="true"
+				rowHover="true" paginator="true" rows="#{Constants.rows}" rowsPerPageTemplate="#{Constants.rowsPerPage}" rowExpandMode="muliple">
+				
+				<p:headerRow>
+		            <p:column colspan="3" >
+		               #{out.materialMovementView.user}
+		            </p:column>
+		        </p:headerRow>
+				
+				<p:column style="width:16px">
+		            <p:rowToggler />
+		        </p:column>
+				
+				<p:column headerText="Nombre" filterBy="#{out.materialMovementView.user}" filterMatchMode="contains">
+					#{out.materialMovementView.user}
+				</p:column>
+				
+				<p:column headerText="Orden de trabajo" filterBy="#{out.materialMovementView.workOrder}" filterMatchMode="contains">
+					#{out.materialMovementView.workOrder}
+				</p:column>
+				
+				<p:rowExpansion>
+		        	<p:dataTable value="#{out.movementFullViewList}" var="mov" 
+		        		rowStyleClass="#{mov.styleClass}">
+		        		<p:column headerText="Material">
+							#{mov.material}
+						</p:column>
+						<p:column headerText="Estatus">
+							#{mov.status}
+						</p:column>
+						<p:column headerText="Movimiento">
+							#{mov.movement}
+						</p:column>
+						<p:column headerText="Cantidad" width="64">
+							<div class="number">#{mov.qty}</div>
+						</p:column>
+						<p:column>
+							<p:commandButton icon="ui-icon-check" value="Aprobar" action="#{materialMovementViewList.approve}" >
+								<f:setPropertyActionListener value="#{mov}" target="#{materialMovementViewList.selectedMovement}" />
+							</p:commandButton>
+							&nbsp;
+							<p:commandButton icon="ui-icon-cancel" value="Rechazar" action="#{materialMovementViewList.deny}">
+								<f:setPropertyActionListener value="#{mov}" target="#{materialMovementViewList.selectedMovement}" />
+							</p:commandButton>
+						</p:column>
+		        	</p:dataTable>
+		        </p:rowExpansion>
+				
+			</p:dataTable>
+		</h:form>
+    		
+	</ui:define>
+	
+</ui:composition>

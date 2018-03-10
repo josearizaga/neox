@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+	
+	<ui:define name="title">
+		Entradas de material
+	</ui:define>
+	
+	<ui:define name="style">
+	<style>
+	.red {
+		background-color: #ff8080;
+		font-weight: bold;
+	}
+	.green {
+		background-color: #80ff80;
+		font-weight: bold;
+	}
+	
+	</style>
+	</ui:define>
+	
+	<ui:define name="content">
+		<h:form>
+			<p:panelGrid style="width:100%">
+				<p:row>
+					<p:column style="width:30%">
+						Material:
+					</p:column>
+					<p:column>
+						<p:selectOneMenu filter="true" filterMatchMode="contains" required="true" requiredMessage="Debes seleccionar el material" 
+							value="#{incomeConfig.idMaterial}">
+							<p:ajax event="change" update="location"/>
+							<f:selectItem itemLabel="Selecciona el material" itemValue="0"/>
+							<f:selectItems value="#{incomeConfig.materials}" var="mat" itemLabel="#{mat.material}" itemValue="#{mat.id}"/>
+						</p:selectOneMenu>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+			<p:outputPanel id="location">
+				<p:panelGrid style="width:100%" rendered="#{incomeConfig.idMaterial > 0}">
+					<p:row>
+						<p:column style="width:30%">
+							Ubicación:
+						</p:column>
+						<p:column>
+							<p:selectOneMenu filter="true" filterMatchMode="contains" required="true" requiredMessage="Debes seleccionar la ubicación" 
+								value="#{incomeConfig.idLocation}">
+								<p:ajax event="change" update="provider"/>
+								<f:selectItem itemLabel="Selecciona la ubicación" itemValue="0"/>
+								<f:selectItems value="#{incomeConfig.selectedLocation}" var="mat" itemLabel="#{mat.location}" itemValue="#{mat.id}"/>
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:outputPanel>
+			<p:outputPanel id="provider">
+				<p:panelGrid style="width:100%" rendered="#{incomeConfig.idMaterial > 0}">
+					<p:row>
+						<p:column style="width:30%">
+							Proveedor:
+						</p:column>
+						<p:column>
+							<p:selectOneMenu filter="true" filterMatchMode="contains" required="true" requiredMessage="Debes seleccionar la ubicación" 
+								value="#{incomeConfig.idProvider}">
+								<p:ajax event="change" update="qty"/>
+								<f:selectItem itemLabel="Selecciona al proveedor" itemValue="0"/>
+								<f:selectItems value="#{incomeConfig.selectedProvider}" var="mat" itemLabel="#{mat.name}" itemValue="#{mat.id}"/>
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:outputPanel>
+			<p:outputPanel id="qty">
+				<p:panelGrid style="width:100%" rendered="#{incomeConfig.idLocation > 0}">
+					<p:row>
+						<p:column style="width:30%">
+							Cantidad:
+						</p:column>
+						<p:column>
+							<p:inputNumber value="#{incomeConfig.qty}" minValue="0" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+				<br />
+				<p:commandButton value="Guardar" action="#{incomeConfig.save}"/>
+			</p:outputPanel>
+		</h:form>   		
+	</ui:define>
+	
+	<ui:define name="panels">
+	</ui:define>
+	
+</ui:composition>

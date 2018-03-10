@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+	
+	<ui:define name="title">
+		Salidas de material
+	</ui:define>
+	
+	<ui:define name="style">
+	<style>
+	.red {
+		background-color: #ff8080;
+		font-weight: bold;
+	}
+	.green {
+		background-color: #80ff80;
+		font-weight: bold;
+	}
+	
+	</style>
+	</ui:define>
+	
+	<ui:define name="content">
+		
+		<h:form>
+			<p:dataTable value="#{outcomeList.list}" var="out" filteredValue="#{outcomeList.filtered}" rowHover="true" sortBy="#{out.materialMovementView.user}"
+				expandableRowGroups="true" paginator="true" rows="#{Constants.rows}" rowsPerPageTemplate="#{Constants.rowsPerPage}" rowExpandMode="muliple">
+				
+				<p:headerRow>
+		            <p:column colspan="3" >
+		               <h:outputText value="#{out.materialMovementView.user}" />
+		            </p:column>
+		        </p:headerRow>
+				
+				<p:column style="width:16px">
+		            <p:rowToggler />
+		        </p:column>
+		        
+		        <p:column headerText="Usuario" filterBy="#{out.materialMovementView.user}" filterMatchMode="contains">
+		        	#{out.materialMovementView.user}
+		        </p:column>
+		        
+		        <p:column headerText="Órden de trabajo" filterBy="#{out.materialMovementView.workOrder}" filterMatchMode="contains">
+		        	#{out.materialMovementView.workOrder}
+		        </p:column>
+		        
+		        <p:rowExpansion>
+		        	<p:dataTable value="#{out.movementFullViewList}" var="mov" 
+		        		rowStyleClass="#{mov.styleClass}">
+		        		<p:column headerText="Material">
+							#{mov.material}
+						</p:column>
+						<p:column headerText="Estatus">
+							#{mov.status}
+						</p:column>
+						<p:column headerText="Movimiento">
+							#{mov.movement}
+						</p:column>
+						<p:column headerText="Cantidad" width="64">
+							<div class="number">#{mov.qty}</div>
+						</p:column>
+						<p:column>
+							<p:commandButton rendered="#{mov.editable}" oncomplete="PF('dlg').show()" icon="ui-icon-arrowthick-1-e" value="Entregar" update="dialog">
+								<f:setPropertyActionListener value="#{mov}" target="#{outcomeList.selected}" />
+							</p:commandButton>
+						</p:column>
+		        	</p:dataTable>
+		        </p:rowExpansion>
+				
+			</p:dataTable>
+		</h:form>
+    		
+	</ui:define>
+	
+	<ui:define name="panels">
+		<p:dialog width="80%" id="dialog" header="Salida de material" widgetVar="dlg" modal="true" closable="true" resizable="false" 
+			responsive="true" closeOnEscape="true" draggable="false">
+			<h:form>
+				<p:messages id="mwizard" closable="true" />
+				<p:dataTable value="#{outcomeList.inventoryList}" var="in" rowKey="#{in.id}" selection="#{outcomeList.selectedInventory}">
+					<f:facet name="header">
+						Inventario
+					</f:facet>
+					<p:column selectionMode="single" style="width:16px;text-align:center"/>
+					<p:column headerText="Ubicación">
+						#{in.location}
+					</p:column>
+					<p:column headerText="Disponibles">
+						#{in.qty}
+					</p:column>
+				</p:dataTable>
+				<br />
+				<p:panelGrid columns="2" style="width:100%">
+					Cantidad:
+					<p:spinner max="#{outcomeList.selected.qty}" value="#{outcomeList.qty}" min="0" required="true" requiredMessage="Debes ingresar la cantidad"/>
+				</p:panelGrid>
+				<br />
+				<p:commandButton process="@form" value="Entregar" action="#{outcomeList.deliver}" update="mwizard"/>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+	
+</ui:composition>

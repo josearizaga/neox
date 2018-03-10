@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+      
+      
+      
+	<ui:define name="title">
+		Ubicaciones
+	</ui:define>
+    
+    <ui:define name="content">
+		<h:form>
+			<p:treeTable value="#{locationList.root}"  var="v" editable="true" paginator="true" rowsPerPageTemplate="#{Constants.rowsPerPage}" rows="#{Constants.rows}">
+				<p:ajax event="rowEdit" listener="#{locationList.onCellEdit}" />
+				
+				<p:column headerText="Ubicación" width="250">
+					<p:cellEditor>
+						<f:facet name="output"><h:outputText value="#{v.location}" /></f:facet>
+						<f:facet name="input"><p:inputText value="#{v.location}" style="width:100%" required="true" maxlength="#{Constants.MAX_TEXT_INPUT}" requiredMessage="Debes escribir la categoría"/></f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Descripción">
+					<p:cellEditor>
+						<f:facet name="output"><h:outputText value="#{v.description}" /></f:facet>
+						<f:facet name="input"><p:inputTextarea value="#{v.description}" style="width:100%" rows="5" maxlength="#{Constants.MAX_TEXT_AREA}" /></f:facet>
+					</p:cellEditor>
+					<h:outputText value="" />
+				</p:column>
+				<p:column style="width:40px">
+					<p:rowEditor />
+				</p:column>
+			</p:treeTable>
+		</h:form>
+
+	</ui:define>
+	
+	<ui:define name="buttonbar">
+		<p:button outcome="add" value="Agregar" icon="ui-icon-plusthick"/>
+		<p:button outcome="edit" value="Editar" icon="ui-icon-pencil"/>
+	</ui:define>
+	
+	<ui:define name="panels">
+		<p:dialog header="Eliminar" widgetVar="dlg" modal="true" closable="false" resizable="false" responsive="true">
+		    
+			<p:panelGrid>
+				<p:row>
+					<p:column colspan="2">¿Realmente quieres eliminar la ubicación?</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:commandButton value="Aceptar" action="#{locationList.delete()}" onclick="PF('dlg').hide();" />
+					</p:column>
+					<p:column>
+						<p:commandButton value="Cancelar" onclick="PF('dlg').hide();" />
+					</p:column>
+				</p:row>
+		    </p:panelGrid>
+		    
+		</p:dialog>
+	</ui:define>	
+
+</ui:composition>

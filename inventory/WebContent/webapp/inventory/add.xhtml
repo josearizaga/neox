@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+      
+      
+      
+	<ui:define name="title">
+		Inventario
+	</ui:define>
+	<ui:define name="content">
+		<h:form>
+			
+			<p:wizard flowListener="#{inventoryViewConfig.onFlowProcess}" backLabel="Regresar" nextLabel="Siguiente">
+				<p:tab id="material" title="Material">
+					<p:panelGrid columns="2" style="width:100%">
+						Material:
+						<p:selectOneMenu filter="true" filterMatchMode="contains" required="true" requiredMessage="Debes seleccionar el material" 
+							value="#{inventoryViewConfig.inventory.idMaterial}">
+							<p:ajax event="change" update="materialv"/>
+							<f:selectItem itemLabel="Selecciona el material"/>
+							<f:selectItems value="#{inventoryViewConfig.materials}" var="mat" itemLabel="#{mat.material}" itemValue="#{mat.id}"/>
+						</p:selectOneMenu>
+					</p:panelGrid>
+					<p:outputPanel id="materialv">
+						<p:panelGrid columns="2" style="width:100%" rendered="#{inventoryViewConfig.inventory.idMaterial > 0}">
+							Disponible:
+							<p:inputNumber minValue="0" value="#{inventoryViewConfig.inventory.qty}" />
+							Cantiad mínima:
+							<p:inputNumber minValue="0" value="#{inventoryViewConfig.inventory.minQty}" />
+							Punto de reorden:
+							<p:inputNumber minValue="0" value="#{inventoryViewConfig.inventory.orderPoint}" />
+						</p:panelGrid>
+					</p:outputPanel>
+				</p:tab>
+				<p:tab id="location" title="Ubicación">
+					<p:panelGrid columns="2" style="width:100%">
+						Ubicación:
+						<p:selectOneMenu filter="true" filterMatchMode="contains" required="true" requiredMessage="Debes seleccionar la ubicación" 
+							value="#{inventoryViewConfig.inventory.idLocation}">
+							<f:selectItem itemLabel="Selecciona la ubicación"/>
+							<f:selectItems value="#{inventoryViewConfig.locations}" var="mat" itemLabel="#{mat.location}" itemValue="#{mat.id}"/>
+						</p:selectOneMenu>
+					</p:panelGrid>
+				</p:tab>
+				<p:tab id="provider" title="Proveedor">
+					<p:panelGrid columns="2" style="width:100%">
+						<p:column style="width:50%">
+							Proveedor:
+						</p:column>
+						<p:selectOneMenu filter="true" filterMatchMode="contains" required="true" requiredMessage="Debes seleccionar al proveedor" 
+							value="#{inventoryViewConfig.inventory.idProvider}">
+							<p:ajax listener="#{inventoryViewConfig.onValueChangeListener}" event="change" update="output"/>
+							<f:selectItem itemLabel="Selecciona al proveedor"/>
+							<f:selectItems value="#{inventoryViewConfig.providers}" var="mat" itemLabel="#{mat.name}" itemValue="#{mat.id}"/>
+						</p:selectOneMenu>
+					</p:panelGrid>
+					<br />
+					<p:outputPanel id="output">
+						<p:panelGrid columns="2" rendered="#{inventoryViewConfig.inventory.idProvider > 0}" style="width:100%">
+							<p:column style="width:50%">
+								Precio unitario:
+							</p:column>
+							<p:inputNumber value="#{inventoryViewConfig.inventory.price}" minValue="0" required="true" requiredMessage="Debes escribir el precio"/>
+						</p:panelGrid>
+					</p:outputPanel>
+				</p:tab>
+				<p:tab id="confirm" title="Confirmar">
+					<p:panelGrid columns="2" style="width:100%">
+						Material:
+						<h:outputText value="#{inventoryViewConfig.getMaterialName()}" />
+						Ubicación:
+						<h:outputText value="#{inventoryViewConfig.getLocationName()}" />
+						Proveedor:
+						<h:outputText value="#{inventoryViewConfig.getProviderName()}" />
+						Disponible:
+						<h:outputText value="#{inventoryViewConfig.inventory.qty}" />
+						Cantiad mínima:
+						<h:outputText value="#{inventoryViewConfig.inventory.minQty}" />
+						Punto de reorden:
+						<h:outputText value="#{inventoryViewConfig.inventory.orderPoint}" />
+						Precio unitario:
+						<h:outputText value="#{inventoryViewConfig.inventory.price}">
+							<f:convertNumber type="currency"/>
+						</h:outputText>
+					</p:panelGrid>
+					<br />
+					<p:commandButton value="Guardar" action="#{inventoryViewConfig.save()}"/>
+				</p:tab>
+			</p:wizard>
+			<br />
+			<p:button value="Cancelar" outcome="index"/>
+		</h:form>
+	</ui:define>
+</ui:composition>

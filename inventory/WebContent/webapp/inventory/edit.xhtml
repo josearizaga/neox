@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+      
+      
+      
+	<ui:define name="title">
+		Inventario
+	</ui:define>
+	<ui:define name="content">
+		<h:form>
+			<p:panelGrid columns="2" style="width:100%">
+				Material
+				<h:outputText value="#{inventoryViewEdit.inventory.material}" />
+				Ubicación
+				<h:outputText value="#{inventoryViewEdit.inventory.location}" />
+				Proveedor
+				<h:outputText value="#{inventoryViewEdit.inventory.provider}" />
+				Disponible
+				<p:inputNumber value="#{inventoryViewEdit.inventory.qty}" minValue="0" style="width:100%"/>
+				Cantiad mínima:
+				<p:inputNumber minValue="0" value="#{inventoryViewEdit.inventory.minQty}" style="width:100%"/>
+				Punto de reorden:
+				<p:inputNumber minValue="0" value="#{inventoryViewEdit.inventory.orderPoint}" style="width:100%"/>
+			</p:panelGrid>
+			<br />
+			<p:commandButton value="Guardar" action="#{inventoryViewEdit.save()}"/>&nbsp;
+			<p:button value="Cancelar" outcome="index"/>
+		</h:form>
+	</ui:define>
+</ui:composition>

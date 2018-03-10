@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+      
+      
+      
+	<ui:define name="title">
+		Áreas
+	</ui:define>
+    
+    <ui:define name="content">
+		<h:form>
+			<p:selectOneMenu value="#{areaMaterialList.idArea}" >
+				<p:ajax event="change" update="output"/>
+				<f:selectItem itemLabel="Selecciona un área" itemValue="0"/>
+				<f:selectItems value="#{areaMaterialList.areas}" var="a" itemLabel="#{a.name}" itemValue="#{a.id}"/>
+			</p:selectOneMenu>
+		</h:form>
+		<br />
+		<p:outputPanel id="output" >
+			<h:outputText value="Tabla de materiales disponibles para el área" rendered="#{areaMaterialList.idArea > 0}"/><br/><br/>
+			<p:dataTable value="#{areaMaterialList.list}" var="v" rendered="#{areaMaterialList.idArea > 0}" emptyMessage="Área sin materiales definidos">
+				<p:column headerText="Material">
+					<h:outputText value="#{v.material}" />
+				</p:column>
+				<p:column headerText="Medida">
+					<h:outputText value="#{v.uom}" />
+				</p:column>
+				<p:column headerText="Categoría">
+					<h:outputText value="#{v.category}" />
+				</p:column>
+			</p:dataTable>
+		</p:outputPanel>
+	</ui:define>
+	
+	<ui:define name="buttonbar">
+		<p:commandButton value="Editar" icon="ui-icon-pencil" action="#{areaMaterialList.add}"/>
+	</ui:define>
+
+</ui:composition>

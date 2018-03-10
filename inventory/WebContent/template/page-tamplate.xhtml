@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<title>
+			<ui:insert name="title">Title!!!</ui:insert>
+		</title>
+		<link rel="stylesheet" type="text/css" href="/inventory/css/page.css" /> 
+		<ui:insert name="style">
+		</ui:insert>
+		<style>
+		input.ui-column-filter {
+			width: 90% !important;
+		}
+		</style>
+	</h:head>	
+	<p:importConstants type="com.neox.inventory.web.controller.Configuration" var="Constants" />
+	<h:body>
+		<h:form>
+			<p:remoteCommand action="#{access.isLogged}" autoRun="true" />
+		</h:form>
+		<p:idleMonitor timeout="#{Constants.idleTimeout}">
+	        <p:ajax event="idle" listener="#{access.onIdle}" oncomplete="location.href = location.href"/>
+	    </p:idleMonitor>
+		<p:messages autoUpdate="true" closable="true" />
+		<div class="ui-g">
+			<div class="ui-g-2">
+				<div class="menubar">
+					<h:form>
+						<p:panelMenu style="width:100%" >
+							<p:submenu label="Enlaces">
+								<p:menuitem value="Inicio" url="/" icon="ui-icon-gear"/>
+								<p:submenu label="Materiales" icon="ui-icon-wrench">
+									<p:menuitem value="Entradas" url="/webapp/income/" icon="ui-icon-wrench"/>
+									<p:menuitem value="Pedidos" url="/webapp/request/" icon="ui-icon-wrench"/>
+									<p:menuitem value="Prestamos" url="/webapp/lending/" icon="ui-icon-wrench"/>
+									<p:menuitem value="Salidas" url="/webapp/outcome/" icon="ui-icon-wrench"/>	
+									<p:menuitem value="Traspasos" url="/webapp/relocation/" icon="ui-icon-wrench"/>							
+								</p:submenu>
+								<p:menuitem value="Salir" outcome="/logout" icon="ui-icon-home"/>
+							</p:submenu>
+							<p:submenu label="Reportes" icon="ui-icon-document">
+								<p:menuitem value="Inventario" url="/report/inventory/" icon="ui-icon-wrench"/>
+							</p:submenu>
+							<p:submenu label="Configuración" icon="ui-icon-gear">
+								<p:submenu label="Áreas">
+									<p:menuitem value="Áreas" url="/webapp/area/" icon="ui-icon-wrench"/>
+									<p:menuitem value="Relación con materiales" outcome="/webapp/area/areaMaterialList" icon="ui-icon-wrench"/>
+									<p:menuitem value="Relación con usuarios" outcome="/webapp/area/areaUserList" icon="ui-icon-wrench"/>
+								</p:submenu>
+								<p:menuitem value="Categorías" url="/webapp/category/" icon="ui-icon-wrench"/>
+								<p:menuitem value="Inventario" url="/webapp/inventory/" icon="ui-icon-wrench"/>
+								<p:submenu label="Materiales">
+									<p:menuitem value="Materiales" url="/webapp/material/" icon="ui-icon-wrench"/>
+									<p:menuitem value="Costos" outcome="/webapp/material/materialProviderPrice" icon="ui-icon-wrench"/>
+								</p:submenu>
+								<p:menuitem value="Proveedores" url="/webapp/provider/" icon="ui-icon-wrench"/>
+								<p:menuitem value="Ubicaciones" url="/webapp/location/" icon="ui-icon-wrench"/>
+								<p:menuitem value="Unidades de medida" url="/webapp/uom/" icon="ui-icon-wrench"/>
+								<p:menuitem value="Usuarios" url="/webapp/user/" icon="ui-icon-wrench"/>
+								<p:menuitem value="Validaciones" url="/webapp/validation/" icon="ui-icon-wrench"/>
+							</p:submenu>
+							
+						</p:panelMenu>
+					</h:form>
+				</div>
+			</div>
+			<div class="ui-g-10">
+				<p:panel>
+					<div class="ui-g">
+						<div class="ui-g-9">
+							<div align="left">
+					    			<ui:insert name="buttonbar"></ui:insert>
+					    		</div>
+					    	</div>
+						<div class="ui-g-3">
+							<div align="right">
+					    			<p:clock mode="client" />
+					    		</div>
+					    	</div>
+					</div>
+				</p:panel>
+				<br />
+				<ui:insert name="content">Content!!!</ui:insert>
+			</div>
+		</div>
+		
+		<ui:insert name="panels"></ui:insert>
+		<p:ajaxStatus onstart="PF('statusDialog').show()" oncomplete="PF('statusDialog').hide()" />
+ 
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+		    <p:graphicImage url="/images/loading.gif" />
+		</p:dialog>
+		
+	</h:body>
+	
+</html>

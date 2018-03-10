@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+      
+      
+      
+	<ui:define name="title">
+		Áreas
+	</ui:define>
+    
+    <ui:define name="content">
+		<h:form>
+			<p:dataTable value="${areaList.areaList}" var="v" editable="true" widgetVar="areaTable"
+				rowKey="#{v.id}" paginator="true" rowsPerPageTemplate="#{Constants.rowsPerPage}" rows="#{Constants.rows}" filteredValue="#{areaList.filteredList}">
+				
+				<p:ajax event="rowEdit" listener="#{areaList.onCellEdit}" />
+				<p:column headerText="Área" width="250" filterBy="#{v.name}" filterMatchMode="contains">
+					<p:cellEditor>
+						<f:facet name="output"><h:outputText value="#{v.name}" /></f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{v.name}" style="width:100%" required="true" requiredMessage="Debes escribir el área" maxlength="#{Constants.MAX_TEXT_INPUT}"/>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="Descripción">
+					<p:cellEditor>
+						<f:facet name="output"><h:outputText value="#{v.description}" /></f:facet>
+						<f:facet name="input"><p:inputTextarea value="#{v.description}" style="width:100%" rows="#{Constants.rows}" maxlength="#{Constants.MAX_TEXT_AREA}"/> </f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column width="40">
+					<p:rowEditor />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+	
+	<ui:define name="buttonbar">
+		<p:button outcome="add" value="Agregar" icon="ui-icon-plusthick"/>
+	</ui:define>
+	
+	<ui:define name="panels">
+		<p:dialog header="Eliminar" widgetVar="dlg" modal="true" closable="false" resizable="false" responsive="true">
+		    
+			<p:panelGrid>
+				<p:row>
+					<p:column colspan="2">¿Realmente quieres eliminar el área?</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:commandButton value="Aceptar" action="#{areaList.delete()}" onclick="PF('dlg').hide();" />
+					</p:column>
+					<p:column>
+						<p:commandButton value="Cancelar" onclick="PF('dlg').hide();" />
+					</p:column>
+				</p:row>
+		    </p:panelGrid>
+		    
+		</p:dialog>
+	</ui:define>	
+
+</ui:composition>

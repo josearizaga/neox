@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+      
+      
+      
+	<ui:define name="title">
+		Inventario
+	</ui:define>
+	
+	<ui:define name="style">
+	<style>
+	.red {
+		background-color: #ff8080;
+		font-weight: bold;
+	}	
+	.yellow {
+		background-color: #ffff33;
+		font-weight: bold;
+	}
+	</style>
+	</ui:define>
+    
+    <ui:define name="content">
+		<h:form>
+			<p:dataTable value="${inventoryViewList.list}" var="v" emptyMessage="Lista vacía" resizableColumns="true" draggableColumns="true" stickyHeader="true" editable="true"
+				rowKey="#{v.id}" paginator="true" rowsPerPageTemplate="#{Constants.rowsPerPage}" rows="#{Constants.rows}" 
+				filteredValue="${inventoryViewList.filtered}" rowStyleClass="#{v.rowStyleClass}" sortMode="multiple" id="dataTable">
+				
+				<p:ajax event="rowEdit" listener="#{inventoryViewList.onCellEdit}" />
+				
+				<p:column headerText="Estatus" filterBy="#{v.status}" sortBy="#{v.status}" filterMatchMode="contains" width="50">
+					<h:outputText value="#{v.status}"/>
+				</p:column>
+				
+				<p:column headerText="Material" filterBy="#{v.material}" sortBy="#{v.material}" filterMatchMode="contains" width="200">
+					<h:outputText value="#{v.material}" />
+				</p:column>
+				
+				<p:column headerText="Ubicación" filterBy="#{v.location}" sortBy="#{v.location}" filterMatchMode="contains" width="150">
+					<h:outputText value="#{v.location}" />
+				</p:column>
+				
+				<p:column headerText="Proveedor" filterBy="#{v.location}" sortBy="#{v.location}" filterMatchMode="contains" width="200">
+					<h:outputText value="#{v.provider}" />
+				</p:column>
+				
+				<p:column headerText="Disponibles" width="50" >
+					<div class="number">
+						<h:outputText value="#{v.qty}" />
+					</div>								
+				</p:column>
+				
+				<p:column headerText="Mínimo" width="50">
+					<p:cellEditor>
+						<f:facet name="output">
+							<div class="number">
+								<h:outputText value="#{v.minQty}" />
+							</div>								
+						</f:facet>
+						<f:facet name="input">
+							<p:inputNumber min="0" value="#{v.minQty}" />
+						</f:facet>
+					</p:cellEditor>
+						
+				</p:column>
+				
+				<p:column headerText="Reorden" width="50">
+					<p:cellEditor>
+						<f:facet name="output">
+							<div class="number">
+								<h:outputText value="#{v.orderPoint}" />
+							</div>								
+						</f:facet>
+						<f:facet name="input">
+							<p:inputNumber min="0" value="#{v.orderPoint}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Editar" width="40">
+					<p:rowEditor />
+				</p:column>
+				
+			</p:dataTable>
+			<h:commandLink>
+                <p:graphicImage value="/images/excel.png" width="24"/>
+                <p:dataExporter type="xls" target="dataTable" fileName="inventario" />
+            </h:commandLink>
+ 
+            <h:commandLink>
+                <p:graphicImage url="/images/pdf.png" width="24"/>
+                <p:dataExporter type="pdf" target="dataTable" fileName="inventario"/>
+            </h:commandLink>
+ 
+		</h:form>
+
+	</ui:define>
+	
+	<ui:define name="buttonbar">
+		<p:button outcome="add" value="Agregar" icon="ui-icon-plusthick"/>
+	</ui:define>
+	
+	<ui:define name="panels">
+		<p:dialog header="Eliminar" widgetVar="dlg" modal="true" closable="false" resizable="false" responsive="true">
+		    
+			<p:panelGrid>
+				<p:row>
+					<p:column colspan="2">¿Realmente quieres eliminar el elemento?</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:commandButton value="Aceptar" action="#{inventoryViewList.delete()}" onclick="PF('dlg').hide();" />
+					</p:column>
+					<p:column>
+						<p:commandButton value="Cancelar" onclick="PF('dlg').hide();" />
+					</p:column>
+				</p:row>
+		    </p:panelGrid>
+		    
+		</p:dialog>
+	</ui:define>	
+
+</ui:composition>

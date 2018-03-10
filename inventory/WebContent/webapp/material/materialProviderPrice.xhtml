@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+      
+      
+      
+	<ui:define name="title">
+		Materiales
+	</ui:define>    
+    <ui:define name="content">
+		<h:form>
+			<p:dataTable value="${materialProviderList.list}" var="v" editable="true" expandableRowGroups="true" sortBy="#{v.material}"
+				rowKey="#{v.id}" paginator="true" rowsPerPageTemplate="#{Constants.rowsPerPage}" rows="#{Constants.rows}" 
+				widgetVar="dataTable" filteredValue="${materialProviderList.filtered}">
+				
+				<p:ajax event="rowEdit" listener="#{materialProviderList.onRowEdit}" />
+				
+				<p:headerRow>
+		            <p:column colspan="4">
+		               <h:outputText value="#{v.material}" />
+		            </p:column>
+		        </p:headerRow>
+				
+				<p:column headerText="Material" filterBy="#{v.material}" filterMatchMode="contains">
+					<h:outputText value="#{v.material}" />
+				</p:column>
+				
+				<p:column headerText="Proveedor" filterBy="#{v.provider}" filterMatchMode="contains">
+					<h:outputText value="#{v.provider}" />
+				</p:column>
+				
+				<p:column headerText="Precio unitario" width="180">
+					<p:cellEditor>
+						<f:facet name="output">
+							<div class="number">
+								<h:outputText value="#{v.price}">
+									<f:convertNumber type="currency"/>
+								</h:outputText>
+							</div>								
+						</f:facet>
+						<f:facet name="input">
+							<p:inputNumber min="0" value="#{v.price}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column width="40">
+					<p:rowEditor />
+				</p:column>
+				
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+	
+	<ui:define name="buttonbar">
+		<p:button outcome="addMaterialProvider" value="Agregar" icon="ui-icon-plusthick"/>
+	</ui:define>
+	
+</ui:composition>

@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+      
+      
+      
+	<ui:define name="title">
+		Áreas
+	</ui:define>
+	<ui:define name="content">
+		<h:form>
+			<p:panelGrid columns="2" style="width:100%">
+				Área:
+				<h:inputText value="#{areaEdit.selectedArea.name}" style="width:100%" />
+				Descripción:
+				<h:inputTextarea value="#{areaEdit.selectedArea.description}" style="width:100%" rows="5"/>
+				Activo:
+				<p:inputSwitch value="#{areaEdit.selectedArea.active}" onLabel="Activo" offLabel="Inactivo"/>
+			</p:panelGrid>
+			<br />
+			<p:commandButton value="Guardar" action="#{areaEdit.save()}"/>&nbsp;
+			<p:commandButton value="Cancelar" onclick="history.go(-1)"/>
+		</h:form>
+	</ui:define>
+</ui:composition>

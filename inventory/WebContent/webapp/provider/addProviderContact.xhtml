@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+      
+      
+      
+	<ui:define name="title">
+		Contactos de proveedor #{providerContactConfig.provider.name}
+	</ui:define>
+	<ui:define name="content">
+		<h:form>
+			<div>
+				Contactos de <b>#{providerContactConfig.provider.name}</b>
+			</div>
+			<br />
+			<h:panelGrid columns="2" style="width:100%">
+				Nombre:
+				<p:inputText label="Nombre" id="name" value="#{providerContactConfig.contact.name}" style="width:100%" required="true" maxlength="#{Constants.MAX_TEXT_INPUT}" requiredMessage="Debes escribir el nombre del proveedor"/>
+				Teléfono:
+				<p:inputMask mask="(999) 999-99-99" value="#{providerContactConfig.contact.phone}" style="width:100%" maxlength="10" />
+				E-mail:
+				<p:inputText mask="(999) 999-99-99" value="#{providerContactConfig.contact.mail}" style="width:100%" />
+				Activo:
+				<p:inputSwitch value="#{uomConfig.uom.active}" onLabel="Activo" offLabel="Inactivo"/>
+			</h:panelGrid>
+			<br />
+			<p:commandButton value="Guardar" action="#{providerContactConfig.save()}" process="@form"/>&nbsp;
+			<p:button value="Cancelar" outcome="contacts"/>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+      
+      
+      
+	<ui:define name="title">
+		Proveedores
+	</ui:define>
+	<ui:define name="content">
+		<h:form>
+			<p:panelGrid columns="2" style="width:100%">
+				Nombre:
+				<p:inputText label="Nombre" id="name" value="#{providerConfig.provider.name}" style="width:100%" required="true" maxlength="#{Constants.MAX_TEXT_INPUT}" requiredMessage="Debes escribir el nombre del proveedor"/>
+				Teléfono:
+				<p:inputMask mask="(999) 999-99-99" value="#{providerConfig.provider.phone}" style="width:100%" maxlength="10" />
+				E-mail:
+				<p:inputText value="#{providerConfig.provider.mail}" style="width:100%" validatorMessage="Debes escribir un correo válido" />
+				Tiempo de entrega:
+				<p:inputTextarea value="#{providerConfig.provider.delivery}" style="width:100%" maxlength="#{Constants.MAX_TEXT_AREA_LEN}" rows="5"/>
+				Condiciones de pago:
+				<p:inputTextarea value="#{providerConfig.provider.payment}" style="width:100%" maxlength="#{Constants.MAX_TEXT_AREA_LEN}" rows="5"/>
+				Lista de materiales:
+				<p:chips value="#{providerConfig.list}" style="width:100%" />
+			</p:panelGrid>
+			<br />
+			<p:commandButton value="Guardar" action="#{providerConfig.save()}" process="@form"/>&nbsp;
+			<p:button value="Cancelar" outcome="index"/>
+		</h:form>
+	</ui:define>
+</ui:composition>

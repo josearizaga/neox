@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+      
+      
+      
+	<ui:define name="title">
+		Materiales
+	</ui:define>
+    
+    <ui:define name="content">
+		<h:form>
+			<p:panelGrid columns="2" style="width:100%">
+				Material:
+				<p:selectOneMenu value="#{materialProviderConfig.material.idMaterial}" filter="true" required="true"
+					requiredMessage="Debes seleccionar un material">
+					<f:selectItem itemLabel="Selecciona un material"/>
+					<f:selectItems value="#{materialProviderConfig.materials}" var="mat" itemLabel="#{mat.material}" itemValue="#{mat.id}"/>
+				</p:selectOneMenu>
+				Proveedor:
+				<p:selectOneMenu value="#{materialProviderConfig.material.idProvider}" filter="true" required="true"
+					requiredMessage="Debes seleccionar un proveedor">
+					<f:selectItem itemLabel="Selecciona un proveedor"/>
+					<f:selectItems value="#{materialProviderConfig.providers}" var="p" itemLabel="#{p.name}" itemValue="#{p.id}"/>
+				</p:selectOneMenu>
+				Precio unitario:
+				<p:inputNumber value="#{materialProviderConfig.material.price}" required="true" minValue="0" 
+					requiredMessage="Debes escribir el precio unitario"/>
+			</p:panelGrid>
+			<br />
+			<p:commandButton value="Guardar" action="#{materialProviderConfig.save()}"/>&nbsp;
+			<p:button value="Cancelar" outcome="materialProviderPrice"/>
+		</h:form>
+	</ui:define>
+</ui:composition>

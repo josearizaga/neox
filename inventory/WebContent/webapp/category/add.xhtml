@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+      
+      
+      
+	<ui:define name="title">
+		Categorías
+	</ui:define>
+	<ui:define name="content">
+		<h:form>
+			<p:panelGrid columns="2" style="width:100%">
+				Categoría:
+				<p:inputText value="#{categoryConfig.category.category}" style="width:100%" required="true" maxlength="#{Constants.MAX_TEXT_INPUT}" requiredMessage="Debes la categoría"/>
+				Categoría perteneciente
+				<p:selectOneMenu value="#{categoryConfig.category.idCategory}">
+					<f:selectItem itemLabel="Ninguna" itemValue="0"/>
+					<f:selectItems value="#{categoryConfig.categories}" var="cat" itemLabel="#{cat.category}" itemValue="#{cat.id}"/>
+				</p:selectOneMenu>
+				Descripción:
+				<p:inputTextarea value="#{categoryConfig.category.description}" style="width:100%" rows="5" maxlength="#{Constants.MAX_TEXT_AREA}"/>
+				Activo:
+				<p:inputSwitch value="#{categoryConfig.category.active}" onLabel="Activo" offLabel="Inactivo"/>
+			</p:panelGrid>
+			<br />
+			<p:commandButton value="Guardar" action="#{categoryConfig.save()}"/>&nbsp;
+			<p:commandButton value="Cancelar" onclick="history.go(-1)"/>
+		</h:form>
+	</ui:define>
+</ui:composition>

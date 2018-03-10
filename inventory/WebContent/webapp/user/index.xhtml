@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+      
+      
+      
+	<ui:define name="title">
+		Usuarios
+	</ui:define>
+    
+    <ui:define name="content">
+		<h:form>
+			<p:dataTable value="${userList.list}" var="v" editable="true"
+				rowKey="#{v.id}" paginator="true" rowsPerPageTemplate="#{Constants.rowsPerPage}" rows="#{Constants.rows}" filteredValue="#{userList.filtered}">
+				<p:ajax event="rowEdit" listener="#{userList.onRowEdit}" />
+				<p:column headerText="Nombre">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{ empty(v.name)?'Sin nombre':v.name}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{v.firstname}" maxlength="#{Constants.MAX_TEXT_AREA}"/>
+							<p:inputText value="#{v.lastname}" maxlength="#{Constants.MAX_TEXT_AREA}"/>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Usuario">
+					<p:cellEditor>
+						<f:facet name="output">
+							#{v.username}
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{v.username}" required="true" requiredMessage="Debes escribir el nombre del usuario" 
+								maxlength="#{Constants.MAX_TEXT_AREA}"/>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Contraseña">
+					<p:cellEditor>
+						<f:facet name="output">
+							**********
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{v.passwd}" maxlength="#{Constants.MAX_TEXT_INPUT}"/>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Activo">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{ (v.active)?'Activo':'Inactivo'}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectBooleanButton onLabel="Activo" offLabel="Inactivo" value="#{v.active}" onIcon="ui-icon-check" offIcon="ui-icon-cancel" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column width="40">
+					<p:rowEditor />
+				</p:column>
+				
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+	
+	<ui:define name="buttonbar">
+		<p:button outcome="add" value="Agregar" icon="ui-icon-plusthick"/>
+	</ui:define>
+
+</ui:composition>

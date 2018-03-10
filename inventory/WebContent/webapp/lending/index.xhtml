@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+	
+	<ui:define name="title">
+		Prestamos
+	</ui:define>
+	
+	<ui:define name="style">
+	<style>
+	.red {
+		background-color: #ff8080;
+		font-weight: bold;
+	}
+	.green {
+		background-color: #80ff80;
+		font-weight: bold;
+	}
+	
+	</style>
+	</ui:define>
+	
+	<ui:define name="content">
+		<h:form>
+			<p:dataTable value="#{lendingList.list}" var="out" filteredValue="#{lendingList.filtered}" sortBy="#{out.name}" 
+				expandableRowGroups="true" id="dataTable">
+				<p:headerRow>
+					<p:column colspan="2">
+						#{out.name}
+					</p:column>
+				</p:headerRow>
+				<p:column headerText="Material">
+					#{out.material}
+				</p:column>
+				<p:column width="230">
+					<p:commandButton value="Devolver" icon="ui-icon-arrowthick-1-w" oncomplete="PF('income').show()" update="income">
+						<f:setPropertyActionListener value="#{out}" target="#{lendingList.selected}" />
+					</p:commandButton>&nbsp;
+					<p:commandButton value="Salida" icon="ui-icon-arrowthick-1-e" oncomplete="PF('dlg').show()" update="outcome">
+						<f:setPropertyActionListener value="#{out}" target="#{lendingList.selected}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>   		
+	</ui:define>
+	
+	<ui:define name="panels">
+		<p:dialog width="80%" id="income" header="Devolución de material" widgetVar="income" modal="true" closable="true" resizable="false" 
+			responsive="true" closeOnEscape="true" draggable="false">
+			<h:form>
+				#{lendingList.selected.material}
+				<p:panelGrid columns="2" style="width:100%">
+					<f:facet name="header">
+						#{lendingList.selected.material}
+					</f:facet>
+					Cantidad:
+					<p:spinner value="#{lendingList.qty}" minValue="0" maxValue="#{lendingList.selected.qty}" min="0" max="#{lendingList.selected.qty}" />
+				</p:panelGrid>
+				<br />
+				<p:commandButton value="Guardar" action="#{lendingList.saveIncome()}" update="#{p:component('dataTable')}" oncomplete="PF('income').hide()"/>
+			</h:form>
+		</p:dialog>
+		<p:dialog width="80%" id="outcome" header="Salida de material" widgetVar="dlg" modal="true" closable="true" resizable="false" 
+			responsive="true" closeOnEscape="true" draggable="false">
+			<h:form>
+				#{lendingList.selected.material}
+				<p:panelGrid columns="2" style="width:100%">
+					<f:facet name="header">
+						#{lendingList.selected.material}
+					</f:facet>
+					Cantidad:
+					<p:spinner value="#{lendingList.qty}" minValue="0" maxValue="#{lendingList.selected.qty}" min="0" max="#{lendingList.selected.qty}" />
+				</p:panelGrid>
+				<br />
+				<p:commandButton value="Guardar" action="#{lendingList.saveOutcome()}" update="#{p:component('dataTable')}" oncomplete="PF('dlg').hide()"/>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+	
+</ui:composition>

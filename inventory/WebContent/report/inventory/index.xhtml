@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+      
+      
+      
+	<ui:define name="title">
+		Inventario
+	</ui:define>
+	
+	<ui:define name="style">
+	<style>
+	.red {
+		background-color: #ff8080;
+		font-weight: bold;
+	}	
+	.yellow {
+		background-color: #ffff33;
+		font-weight: bold;
+	}
+	</style>
+	</ui:define>
+    
+    <ui:define name="content">
+		<h:form>
+			<p:dataTable value="${inventoryReport.list}" var="v" sortBy="#{v.material}"
+				resizableColumns="true" liveResize="true"
+				rowKey="#{v.id}" paginator="true" rowsPerPageTemplate="#{Constants.rowsPerPage}" rows="#{Constants.rows}" 
+				widgetVar="dataTable" filteredValue="${inventoryReport.filtered}" id="dataTable">
+				
+				
+				<p:headerRow>
+		            <p:column colspan="4">
+		               #{v.material}
+		            </p:column>
+		        </p:headerRow>
+				
+				<p:column headerText="Material" filterBy="#{v.material}" filterMatchMode="contains" sortBy="#{v.material}">
+					<h:outputText value="#{v.material}" />
+				</p:column>
+				<p:column headerText="Categoría" filterBy="#{v.category}" filterMatchMode="contains" sortBy="#{v.category}">
+					<h:outputText value="#{v.category}" />
+				</p:column>
+				<p:column headerText="Ubicación" filterBy="#{v.location}" filterMatchMode="contains" sortBy="#{v.location}">
+					<h:outputText value="#{v.location}" />
+				</p:column>
+				
+				<p:column headerText="Proveedor" filterBy="#{v.provider}" filterMatchMode="contains" sortBy="#{v.provider}">
+					<h:outputText value="#{v.provider}" />
+				</p:column>
+				
+				<p:column headerText="Precio unitario" width="180" sortBy="#{v.price}">
+					<h:outputText value="#{v.price}">
+						<f:convertNumber type="currency"/>
+					</h:outputText>
+				</p:column>
+				
+			</p:dataTable>
+			<h:commandLink>
+                <p:graphicImage value="/images/excel.png" width="24"/>
+                <p:dataExporter type="xls" target="dataTable" fileName="inventario" />
+            </h:commandLink>
+ 
+            <h:commandLink>
+                <p:graphicImage url="/images/pdf.png" width="24"/>
+                <p:dataExporter type="pdf" target="dataTable" fileName="inventario" encoding="ISO-8859-1"/>
+            </h:commandLink>
+ 
+		</h:form>
+
+	</ui:define>
+	
+	<ui:define name="buttonbar">
+		
+	</ui:define>
+	
+	<ui:define name="panels">
+		<p:dialog header="Eliminar" widgetVar="dlg" modal="true" closable="false" resizable="false" responsive="true">
+		    
+			<p:panelGrid>
+				<p:row>
+					<p:column colspan="2">¿Realmente quieres eliminar el elemento?</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:commandButton value="Aceptar" action="#{inventoryViewList.delete()}" onclick="PF('dlg').hide();" />
+					</p:column>
+					<p:column>
+						<p:commandButton value="Cancelar" onclick="PF('dlg').hide();" />
+					</p:column>
+				</p:row>
+		    </p:panelGrid>
+		    
+		</p:dialog>
+	</ui:define>	
+
+</ui:composition>

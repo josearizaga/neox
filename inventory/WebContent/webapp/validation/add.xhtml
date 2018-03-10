@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+      
+      
+      
+	<ui:define name="title">
+		Validaciones
+	</ui:define>
+	<ui:define name="content">
+		<h:form>
+			<p:panelGrid columns="2" style="width:100%">
+				Área perteneciente
+				<p:selectOneMenu value="#{validationConfig.validation.idArea}" required="true" requiredMessage="Debes seleccionar un área">
+					<f:selectItem itemLabel="Seleccionar área"/>
+					<f:selectItems value="#{validationConfig.areas}" var="cat" itemLabel="#{cat.name}" itemValue="#{cat.id}"/>
+				</p:selectOneMenu>
+				Tope:
+				<p:inputNumber value="#{validationConfig.validation.top}" style="width:100%" minValue="0" required="true" 
+					requiredMessage="Debes escribir el monto del tope"/>
+			</p:panelGrid>
+			<br />
+			<p:commandButton value="Guardar" action="#{validationConfig.save()}"/>&nbsp;
+			<p:button value="Cancelar" outcome="index"/>
+		</h:form>
+	</ui:define>
+</ui:composition>

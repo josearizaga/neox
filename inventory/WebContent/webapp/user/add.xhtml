@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+      
+      
+      
+	<ui:define name="title">
+		Usuarios
+	</ui:define>
+	<ui:define name="content">
+		<h:form>
+			<p:wizard flowListener="#{userConfig.onFlowProcess}">
+				<p:tab id="user" title="Usuario">
+					<p:panelGrid columns="2" style="width:100%">
+						Nombre de usuario:
+						<p:inputText value="#{userConfig.user.username}" maxlength="#{Constants.MAX_TEXT_INPUT}" 
+							required="true" requiredMessage="Debes escribir el nombre del usuario"/>
+						Contraseña:
+						<p:password validatorMessage="Las contraseñas deben coincidir" value="#{userConfig.user.passwd}" 
+						feedback="true" id="passwd" match="passwd2" required="true" requiredMessage="Debes escribir la contraseña" />
+						Reescribir contraseña:
+						<p:password id="passwd2"/>
+					</p:panelGrid>
+				</p:tab>
+				<p:tab id="info" title="Información">
+					<p:panelGrid columns="2" style="width:100%">
+						Nombre:
+						<p:inputText value="#{userConfig.userInfo.name}" maxlength="#{Constants.DOUBLE_TEXT_AREA}" 
+							required="true" requiredMessage="Debes escribir el nombre de la persona"/>
+						Apellidos:
+						<p:inputText value="#{userConfig.userInfo.lastname}" maxlength="#{Constants.DOUBLE_TEXT_AREA}" 
+							required="true" requiredMessage="Debes escribir los apellidos de la persona"/>
+					</p:panelGrid>
+				</p:tab>
+				<p:tab id="confirmation" title="Confirmación">
+					<p:panelGrid columns="2" style="width:100%">
+						<p:column>
+							Nombre:
+						</p:column>
+						<p:column>
+							#{userConfig.userInfo.name}
+						</p:column>
+						<p:column>
+							Apellidos:
+						</p:column>
+						<p:column>
+							#{userConfig.userInfo.lastname}
+						</p:column>
+						<p:column>
+							Nombre:
+						</p:column>
+						<p:column>
+							#{userConfig.user.username}
+						</p:column>
+						<p:column>
+							Contraseña:
+						</p:column>
+						<p:column>
+							#{userConfig.hiddenPasswd}
+						</p:column>
+					</p:panelGrid>
+					<br />
+					<p:commandButton value="Guardar" action="#{userConfig.save()}"/>
+				</p:tab>
+			</p:wizard>
+			<br />
+			<p:button value="Cancelar" outcome="index"/>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+      
+      
+      
+	<ui:define name="title">
+		Materiales
+	</ui:define>
+    
+    <ui:define name="content">
+		<h:form>
+			<p:dataTable value="${materialList.list}" var="v" editable="true" multiViewState="true" 
+				rowKey="#{v.id}" paginator="true" rowsPerPageTemplate="#{Constants.rowsPerPage}" rows="#{Constants.rows}" filteredValue="#{materialList.filtered}">
+				
+				<p:ajax event="rowEdit" listener="#{materialList.onCellEdit}" />
+				
+				<p:column headerText="Material" width="250" filterBy="#{v.material}" filterMatchMode="contains">
+					<p:cellEditor>
+						<f:facet name="output"><h:outputText value="#{v.material}" /></f:facet>
+						<f:facet name="input"><p:inputText value="#{v.material}" style="width:100%" required="true" maxlength="#{Constants.MAX_TEXT_INPUT}" requiredMessage="Debes escribir el material"/> </f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="Descripción" >
+					<p:cellEditor>
+						<f:facet name="output"><h:outputText value="#{v.description}" /></f:facet>
+						<f:facet name="input"><p:inputTextarea value="#{v.description}" style="width:100%" rows="5" maxlength="#{Constants.MAX_TEXT_AREA}"/> </f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="Categoría" width="130">
+					<p:cellEditor>
+						<f:facet name="output"><h:outputText value="#{materialList.getCategoryName(v.idCategory)}" /></f:facet>
+						<f:facet name="input">
+							<p:selectOneMenu value="#{v.idCategory}" filter="true">
+								<f:selectItems value="#{materialList.categories}" var="mat" itemLabel="#{mat.category}" itemValue="#{mat.id}"/>
+							</p:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="Unidad de medida" width="130" >
+					<p:cellEditor>
+						<f:facet name="output"><h:outputText value="#{materialList.getUnitName(v.idUOM)}" /></f:facet>
+						<f:facet name="input">
+							<f:facet name="input">
+								<p:selectOneMenu value="#{v.idUOM}"  filter="true">
+									<f:selectItems value="#{materialList.units}" var="uom" itemLabel="#{uom.uom}" itemValue="#{uom.id}"/>
+								</p:selectOneMenu>
+							</f:facet>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column width="40">
+					<p:rowEditor />
+				</p:column>
+				
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+	
+	<ui:define name="buttonbar">
+		<p:button outcome="add" value="Agregar" icon="ui-icon-plusthick"/>
+	</ui:define>
+	
+	<ui:define name="panels">
+		<p:dialog header="Eliminar" widgetVar="dlg" modal="true" closable="false" resizable="false" responsive="true">
+		    
+			<p:panelGrid>
+				<p:row>
+					<p:column colspan="2">¿Realmente quieres eliminar el material?</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:commandButton value="Aceptar" action="#{materialList.delete()}" onclick="PF('dlg').hide();"  />
+					</p:column>
+					<p:column>
+						<p:commandButton value="Cancelar" onclick="PF('dlg').hide();" />
+					</p:column>
+				</p:row>
+		    </p:panelGrid>
+		    
+		</p:dialog>
+	</ui:define>	
+
+</ui:composition>

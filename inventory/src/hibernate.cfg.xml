@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory>
+  <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+  <!-- 
+  <property name="hibernate.connection.password">root</property>
+  <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/inventory</property>
+  <property name="hibernate.connection.username">root</property>
+  <property name="hibernate.default_schema">inventory</property>
+   -->
+  <property name="hibernate.connection.datasource">java:comp/env/jdbc/inventory</property>
+  <property name="hibernate.current_session_context_class">thread</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+  <property name="hibernate.show_sql">false</property>
+  <!-- Area -->
+  <mapping class="com.neox.inventory.model.area.Area"/>
+  <mapping class="com.neox.inventory.model.area.AreaMaterial"/>
+  <mapping class="com.neox.inventory.model.area.AreaMaterialView"/>
+  <mapping class="com.neox.inventory.model.area.AreaUser"/>
+  <mapping class="com.neox.inventory.model.area.AreaUserView"/>
+  <mapping class="com.neox.inventory.model.area.Location"/>
+  <mapping class="com.neox.inventory.model.area.Validation"/>
+  <!-- Material -->
+  <mapping class="com.neox.inventory.model.material.Category"/>
+  <mapping class="com.neox.inventory.model.material.Header"/>
+  <mapping class="com.neox.inventory.model.material.Income"/>
+  <mapping class="com.neox.inventory.model.material.Inventory"/>
+  <mapping class="com.neox.inventory.model.material.InventoryHistory"/>
+  <mapping class="com.neox.inventory.model.material.InventoryView"/>
+  <mapping class="com.neox.inventory.model.material.LogMovement"/>
+  <mapping class="com.neox.inventory.model.material.Material"/>
+  <mapping class="com.neox.inventory.model.material.MaterialMovement"/>
+  <mapping class="com.neox.inventory.model.material.MaterialMovementFullView"/>
+  <mapping class="com.neox.inventory.model.material.MaterialMovementUserView"/>
+  <mapping class="com.neox.inventory.model.material.MaterialMovementView"/>
+  <mapping class="com.neox.inventory.model.material.MaterialPrice"/>
+  <mapping class="com.neox.inventory.model.material.MaterialProviderPrice"/>
+  <mapping class="com.neox.inventory.model.material.MaterialProviderPriceView"/>
+  <mapping class="com.neox.inventory.model.material.MaterialView"/>
+  <mapping class="com.neox.inventory.model.material.Movement"/>
+  <mapping class="com.neox.inventory.model.material.Outcome"/>
+  <mapping class="com.neox.inventory.model.material.OutcomeView"/>
+  <mapping class="com.neox.inventory.model.material.Reorder"/>
+  <mapping class="com.neox.inventory.model.material.Status"/>
+  <mapping class="com.neox.inventory.model.material.Transfer"/>
+  <mapping class="com.neox.inventory.model.material.UOM"/>
+  <!-- Provider -->
+  <mapping class="com.neox.inventory.model.provider.Provider"/>
+  <mapping class="com.neox.inventory.model.provider.ProviderContact"/>
+  <!-- Report -->
+  <mapping class="com.neox.inventory.model.report.InventoryReportView"/>
+  <!-- User -->
+  <mapping class="com.neox.inventory.model.user.User"/>
+  <mapping class="com.neox.inventory.model.user.UserInfo"/>
+  <mapping class="com.neox.inventory.model.user.UserView"/>
+ </session-factory>
+</hibernate-configuration>

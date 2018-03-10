@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+      
+      
+      
+	<ui:define name="title">
+		Reubicación de material
+	</ui:define>
+	<ui:define name="style">
+	<style>
+	.red {
+		background-color: #ff8080;
+		font-weight: bold;
+	}	
+	.yellow {
+		background-color: #ffff33;
+		font-weight: bold;
+	}
+	</style>
+	</ui:define>
+    
+    <ui:define name="content">
+		<h:form>
+			<p:outputPanel>
+				<p:fieldset legend="Selección de material">
+					<p:panelGrid style="width:100%">
+						<p:row>
+							<p:column style="width:30%">
+								Material:
+							</p:column>
+							<p:column>
+								<p:selectOneMenu filter="true" filterMatchMode="contains" required="true" requiredMessage="Debes seleccionar el material" 
+									value="#{transferConfig.idMaterial}">
+									<p:ajax event="change" update="location" />
+									<f:selectItem itemLabel="Selecciona el material" itemValue="0"/>
+									<f:selectItems value="#{transferConfig.materials}" var="mat" itemLabel="#{mat.material}" itemValue="#{mat.id}"/>
+								</p:selectOneMenu>
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</p:fieldset>
+			</p:outputPanel>
+			<br />
+			<p:outputPanel id="location">
+				<p:fieldset id="available" legend="Ubicaciones" rendered="#{transferConfig.idMaterial > 0}">
+					<p:panelGrid style="width:100%">
+						<p:row>
+							<p:column style="width:30%">
+								Ubicación fuente:
+							</p:column>
+							<p:column>
+								<p:selectOneMenu filter="true" filterMatchMode="contains" required="true" requiredMessage="Selecciona la ubicación fuente"
+									value="#{transferConfig.source}">
+									<p:ajax event="change" listener="#{transferConfig.sourceListener}" update="quantity qty" />
+									<f:selectItem itemLabel="Selecciona la ubicación fuente" itemValue="0"/>
+									<f:selectItems value="#{transferConfig.selectedInventory}" var="inv" itemLabel="#{inv.location}" itemValue="#{inv.idLocation}"/>
+								</p:selectOneMenu>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column style="width:30%">
+								Ubicación destino:
+							</p:column>
+							<p:column>
+								<p:selectOneMenu filter="true" filterMatchMode="contains" required="true" requiredMessage="Selecciona la ubicación fuente"
+									value="#{transferConfig.destination}">
+									<p:ajax event="change" update="quantity qty" listener="#{transferConfig.destinationListener}"/>
+									<f:selectItem itemLabel="Selecciona la ubicación destino" itemValue="0"/>
+									<f:selectItems value="#{transferConfig.locations}" var="inv" itemLabel="#{inv.location}" itemValue="#{inv.id}"/>
+								</p:selectOneMenu>
+							</p:column>
+						</p:row>
+						
+					</p:panelGrid>
+				</p:fieldset>
+			</p:outputPanel>
+			<br />
+			<p:outputPanel id="quantity">
+				<p:panelGrid style="width:100%" rendered="#{transferConfig.source > 0}">
+					<f:facet name="header">
+						<p:row>						
+							<p:column colspan="2">Ubicación</p:column>
+							<p:column>Disponibles</p:column>
+						</p:row>
+					</f:facet>
+					<p:row rendered="#{transferConfig.source > 0}">
+						<p:column>Fuente</p:column>
+						<p:column>
+							#{transferConfig.sourceView.location}
+						</p:column>
+						<p:column>
+							#{transferConfig.sourceView.qty}
+						</p:column>
+					</p:row>
+					<p:row rendered="#{transferConfig.destinationView != null}">
+						<p:column>Destino</p:column>
+						<p:column>
+							#{transferConfig.destinationView.location}
+						</p:column>
+						<p:column>
+							#{transferConfig.destinationView.qty}
+						</p:column>
+					</p:row>
+					<p:row rendered="#{transferConfig.destinationView == null and transferConfig.destination > 0}" >
+						<p:column colspan="3">
+							<p:commandButton value="Argegar como nuevo" process="@none">
+								<p:ajax event="click" update="quantity" listener="#{transferConfig.addAsNew}"/>
+							</p:commandButton>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:outputPanel>
+			<br /><br />
+			<p:outputPanel id="qty">
+				<p:panelGrid style="width:100%" rendered="#{transferConfig.source > 0 and transferConfig.destination > 0}">
+					<p:row >
+						<p:column style="width:30%">
+							Cantidad
+						</p:column>
+						<p:column>
+							<p:spinner min="0" max="#{transferConfig.sourceView.qty}" value="#{transferConfig.qty}" required="true"
+								requiredMessage="Debes seleccionar la cantidad a reubicar">
+								<p:ajax event="change" update="quantity" listener="#{transferConfig.changeListener}"/>
+							</p:spinner>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="2">
+							<p:commandButton value="Guardar" action="#{transferConfig.save}" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:outputPanel>
+		</h:form>
+
+	</ui:define>
+	
+	<ui:define name="buttonbar">
+		
+	</ui:define>
+	
+	<ui:define name="panels">
+	</ui:define>	
+
+</ui:composition>
