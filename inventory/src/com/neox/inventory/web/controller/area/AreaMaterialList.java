@@ -17,6 +17,15 @@ import com.neox.inventory.web.controller.Main;
 public class AreaMaterialList extends Main implements Serializable {
 	
 	private List<AreaMaterialView> list;
+	private List<AreaMaterialView> filtered;
+	public List<AreaMaterialView> getFiltered() {
+		return filtered;
+	}
+
+	public void setFiltered(List<AreaMaterialView> filtered) {
+		this.filtered = filtered;
+	}
+
 	private Integer idArea = 0;
 	
 	public AreaMaterialList() {}

@@ -15,6 +15,7 @@ public class AreaMaterialView {
 	private Integer id;
 	private Integer idArea;
 	private Integer idMaterial;
+	private Integer idCategory;
 	private String area;
 	private String areadesc;
 	private String material;
@@ -89,5 +90,13 @@ public class AreaMaterialView {
 				+ "\tarea:"+area+",\n"
 				+ "\tmaterial:"+material+",\n"
 				+ "}";
+	}
+
+	public Integer getIdCategory() {
+		return idCategory;
+	}
+
+	public void setIdCategory(Integer idCategory) {
+		this.idCategory = idCategory;
 	}
 }

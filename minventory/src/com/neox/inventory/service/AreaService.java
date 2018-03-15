@@ -14,6 +14,28 @@ import com.neox.inventory.util.HibernateUtil;
 
 public class AreaService {
 	
+	public static List<AreaMaterialView> getCategoryList(Integer idArea) {
+		List<AreaMaterialView> list = new ArrayList<AreaMaterialView>();
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Query q = session.createQuery("from AreaMaterialView where idArea = :id_area group by category order by material asc");
+			q.setParameter("id_area", idArea);
+			list = q.list();
+			
+			tx.commit();
+		} catch(HibernateException e) {
+			if(tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return list;
+	}
+	
 	public static Area getById(Integer id) {
 		Area value = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -37,14 +59,15 @@ public class AreaService {
 		return value;
 	}
 	
-	public static List<AreaMaterialView> getAreaMaterialList(Integer idArea) {
+	public static List<AreaMaterialView> getAreaMaterialList(Integer idArea, Integer idCategory) {
 		List<AreaMaterialView> list = new ArrayList<AreaMaterialView>();
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery("from AreaMaterialView where idArea = :id_area order by material asc");
+			Query q = session.createQuery("from AreaMaterialView where idArea = :id_area and idCategory = :idCategory order by material asc");
 			q.setParameter("id_area", idArea);
+			q.setParameter("idCategory", idCategory);
 			list = q.list();
 			
 			tx.commit();

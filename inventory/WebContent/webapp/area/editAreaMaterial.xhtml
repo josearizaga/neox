@@ -15,7 +15,8 @@
 		<h:form>
 			Area: <b><h:outputText value="#{areaMaterialEdit.area.name}" /></b>
 			<br />
-			<p:pickList value="#{areaMaterialEdit.materialList}" var="area" itemLabel="#{area.material}" itemValue="#{area.id}">
+			<p:pickList value="#{areaMaterialEdit.materialList}" var="area" itemLabel="#{area.material}" itemValue="#{area.id}"
+				responsive="true" showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains">
 				<p:ajax event="transfer" listener="#{areaMaterialEdit.onTransfer}" />
 			</p:pickList>
 			<br />

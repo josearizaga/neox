@@ -23,7 +23,8 @@
 		<br />
 		<p:outputPanel id="output" >
 			<h:outputText value="Tabla de materiales disponibles para el área" rendered="#{areaMaterialList.idArea > 0}"/><br/><br/>
-			<p:dataTable value="#{areaMaterialList.list}" var="v" rendered="#{areaMaterialList.idArea > 0}" emptyMessage="Área sin materiales definidos">
+			<p:dataTable value="#{areaMaterialList.list}" var="v" rendered="#{areaMaterialList.idArea > 0}" emptyMessage="Área sin materiales definidos"
+				paginator="true" rowsPerPageTemplate="#{Constants.rowsPerPage}" rows="#{Constants.rows}" filteredValue="#{areaMaterialList.filtered}">
 				<p:column headerText="Material">
 					<h:outputText value="#{v.material}" />
 				</p:column>

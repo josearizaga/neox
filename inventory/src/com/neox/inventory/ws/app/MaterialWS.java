@@ -34,6 +34,7 @@ import com.neox.inventory.service.MovementService;
 import com.neox.inventory.service.StatusService;
 import com.neox.inventory.service.UOMService;
 import com.neox.inventory.service.ValidationService;
+import com.neox.inventory.ws.bean.AreaBean;
 import com.neox.inventory.ws.bean.MaterialBean;
 import com.neox.inventory.ws.bean.Token;
 import com.neox.inventory.ws.helper.MaterialHelper;
@@ -148,24 +149,48 @@ public class MaterialWS extends Auth {
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	@Path("listByArea.json")
-	public String Login(Token data) {
+	public String listByArea(AreaBean data) {
 		String value = null;
 		Map<String,Object> map = new HashMap<>();
-		if(isAuthorized()) {
-			List<AreaMaterialView> list = AreaService.getAreaMaterialList(new Integer(data.getToken()));
-			if(list.isEmpty()) {
-				map.put("code", "204");
-			} else {
-				map.put("code", "200");
-				map.put("areaList", list);
-			}
-			try {
-				
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
+		List<AreaMaterialView> list = AreaService.getAreaMaterialList(data.getIdArea(),data.getIdCategory());
+		if(list.isEmpty()) {
+			map.put("code", "204");
 		} else {
-			map.put("code", "403");
+			map.put("code", "200");
+			map.put("areaList", list);
+		}
+		try {
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		ObjectMapper mapper = MapperUtil.getMapper();
+		try {
+			value = mapper.writeValueAsString(map);
+		} catch (JsonProcessingException e) {
+			value = String.format("{\"code\":\"500\",\"error\":\"%s\"}", e.getMessage());
+		}
+		return value;
+	}
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+	@Path("categoryByArea.json")
+	public String categoryByArea(Token data) {
+		String value = null;
+		Map<String,Object> map = new HashMap<>();
+		List<AreaMaterialView> list = AreaService.getCategoryList(new Integer(data.getToken()));
+		if(list.isEmpty()) {
+			map.put("code", "204");
+		} else {
+			map.put("code", "200");
+			map.put("categoryList", list);
+		}
+		try {
+			
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
 		ObjectMapper mapper = MapperUtil.getMapper();
 		try {
