@@ -46,6 +46,9 @@
   <mapping class="com.neox.inventory.model.material.Status"/>
   <mapping class="com.neox.inventory.model.material.Transfer"/>
   <mapping class="com.neox.inventory.model.material.UOM"/>
+  <!-- Menu -->
+  <mapping class="com.neox.inventory.model.menu.Menu"/>
+  <mapping class="com.neox.inventory.model.menu.UserMenu"/>
   <!-- Provider -->
   <mapping class="com.neox.inventory.model.provider.Provider"/>
   <mapping class="com.neox.inventory.model.provider.ProviderContact"/>

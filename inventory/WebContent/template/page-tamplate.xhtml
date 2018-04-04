@@ -30,38 +30,44 @@
 			<div class="ui-g-2">
 				<div class="menubar">
 					<h:form>
+						<p:panelMenu style="width:100%" model="#{menu.menuModel}" />
+					</h:form>
+				</div>
+				
+				<div class="menubar">
+					<h:form>
 						<p:panelMenu style="width:100%" >
 							<p:submenu label="Enlaces">
-								<p:menuitem value="Inicio" url="/" icon="ui-icon-gear"/>
+								<p:menuitem value="Inicio" outcome="/index" icon="ui-icon-gear"/>
 								<p:submenu label="Materiales" icon="ui-icon-wrench">
-									<p:menuitem value="Entradas" url="/webapp/income/" icon="ui-icon-wrench"/>
-									<p:menuitem value="Pedidos" url="/webapp/request/" icon="ui-icon-wrench"/>
-									<p:menuitem value="Prestamos" url="/webapp/lending/" icon="ui-icon-wrench"/>
-									<p:menuitem value="Salidas" url="/webapp/outcome/" icon="ui-icon-wrench"/>	
-									<p:menuitem value="Traspasos" url="/webapp/relocation/" icon="ui-icon-wrench"/>							
+									<p:menuitem value="Entradas" outcome="/webapp/income/index" icon="ui-icon-wrench"/>
+									<p:menuitem value="Pedidos" outcome="/webapp/request/index" icon="ui-icon-wrench"/>
+									<p:menuitem value="Prestamos" outcome="/webapp/lending/index" icon="ui-icon-wrench"/>
+									<p:menuitem value="Salidas" outcome="/webapp/outcome/index" icon="ui-icon-wrench"/>	
+									<p:menuitem value="Traspasos" outcome="/webapp/relocation/index" icon="ui-icon-wrench"/>							
 								</p:submenu>
 								<p:menuitem value="Salir" outcome="/logout" icon="ui-icon-home"/>
 							</p:submenu>
 							<p:submenu label="Reportes" icon="ui-icon-document">
-								<p:menuitem value="Inventario" url="/report/inventory/" icon="ui-icon-wrench"/>
+								<p:menuitem value="Inventario" outcome="/report/inventory/index" icon="ui-icon-wrench"/>
 							</p:submenu>
 							<p:submenu label="Configuración" icon="ui-icon-gear">
 								<p:submenu label="Áreas">
-									<p:menuitem value="Áreas" url="/webapp/area/" icon="ui-icon-wrench"/>
+									<p:menuitem value="Áreas" outcome="/webapp/area/index" icon="ui-icon-wrench"/>
 									<p:menuitem value="Relación con materiales" outcome="/webapp/area/areaMaterialList" icon="ui-icon-wrench"/>
 									<p:menuitem value="Relación con usuarios" outcome="/webapp/area/areaUserList" icon="ui-icon-wrench"/>
 								</p:submenu>
-								<p:menuitem value="Categorías" url="/webapp/category/" icon="ui-icon-wrench"/>
-								<p:menuitem value="Inventario" url="/webapp/inventory/" icon="ui-icon-wrench"/>
+								<p:menuitem value="Categorías" outcome="/webapp/category/index" icon="ui-icon-wrench"/>
+								<p:menuitem value="Inventario" outcome="/webapp/inventory/index" icon="ui-icon-wrench"/>
 								<p:submenu label="Materiales">
-									<p:menuitem value="Materiales" url="/webapp/material/" icon="ui-icon-wrench"/>
+									<p:menuitem value="Materiales" outcome="/webapp/material/index" icon="ui-icon-wrench"/>
 									<p:menuitem value="Costos" outcome="/webapp/material/materialProviderPrice" icon="ui-icon-wrench"/>
 								</p:submenu>
-								<p:menuitem value="Proveedores" url="/webapp/provider/" icon="ui-icon-wrench"/>
-								<p:menuitem value="Ubicaciones" url="/webapp/location/" icon="ui-icon-wrench"/>
-								<p:menuitem value="Unidades de medida" url="/webapp/uom/" icon="ui-icon-wrench"/>
-								<p:menuitem value="Usuarios" url="/webapp/user/" icon="ui-icon-wrench"/>
-								<p:menuitem value="Validaciones" url="/webapp/validation/" icon="ui-icon-wrench"/>
+								<p:menuitem value="Proveedores" outcome="/webapp/provider/index" icon="ui-icon-wrench"/>
+								<p:menuitem value="Ubicaciones" outcome="/webapp/location/index" icon="ui-icon-wrench"/>
+								<p:menuitem value="Unidades de medida" outcome="/webapp/uom/index" icon="ui-icon-wrench"/>
+								<p:menuitem value="Usuarios" outcome="/webapp/user/index" icon="ui-icon-wrench"/>
+								<p:menuitem value="Validaciones" outcome="/webapp/validation/index" icon="ui-icon-wrench"/>
 							</p:submenu>
 							
 						</p:panelMenu>

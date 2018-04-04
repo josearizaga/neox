@@ -184,4 +184,14 @@ public class Main {
 		return user != null;
 	}
 	
+	public boolean isAdmin() {
+		User user = getUser();
+		return (user != null)?user.isAdmin():false;
+	}
+	
+	public Integer getUserId() {
+		User user = getUser();
+		return (user != null)?user.getId():-1;
+	}
+	
 }
