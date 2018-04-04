@@ -70,7 +70,7 @@ public class Menu implements Serializable {
 	
 	public String toString() {
 		return "["
-				+ "\tid:"+id+",\n"
+				+ "id:"+id+",\n"
 				+ "\tidMenu:"+idMenu+",\n"
 				+ "\tlabel:"+label+",\n"
 				+ "\toutcome:"+outcome+",\n"
