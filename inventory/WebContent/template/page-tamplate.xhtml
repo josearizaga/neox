@@ -66,7 +66,10 @@
 								<p:menuitem value="Proveedores" outcome="/webapp/provider/index" icon="ui-icon-wrench"/>
 								<p:menuitem value="Ubicaciones" outcome="/webapp/location/index" icon="ui-icon-wrench"/>
 								<p:menuitem value="Unidades de medida" outcome="/webapp/uom/index" icon="ui-icon-wrench"/>
-								<p:menuitem value="Usuarios" outcome="/webapp/user/index" icon="ui-icon-wrench"/>
+								<p:submenu label="Usuarios">
+									<p:menuitem value="Menu" outcome="/webapp/user/usermenu" icon="ui-icon-wrench"/>
+									<p:menuitem value="Usuarios" outcome="/webapp/user/index" icon="ui-icon-wrench"/>
+								</p:submenu>
 								<p:menuitem value="Validaciones" outcome="/webapp/validation/index" icon="ui-icon-wrench"/>
 							</p:submenu>
 							

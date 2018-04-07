@@ -88,12 +88,12 @@ public class ProviderList extends Main implements Serializable {
 				edited = filtered.get(index);
 			}
 			edited.setModificationUser(getUsername());
-			if(!edited.getMail().trim().isEmpty()) {
-				if(!Pattern.matches(Configuration.validMail, edited.getMail().trim())) {
-					addMessage("Debes escribir una dirección de correo válida", true);
-					return;
-				}
-			}
+//			if(!edited.getMail().trim().isEmpty()) {
+//				if(!Pattern.matches(Configuration.validMail, edited.getMail().trim())) {
+//					addMessage("Debes escribir una dirección de correo válida", true);
+//					return;
+//				}
+//			}
 			
 			if(!ObjectService.save(edited)) {
 				addMessage("Ocurrió un error al editar al proveedor", true);
@@ -114,12 +114,7 @@ public class ProviderList extends Main implements Serializable {
 //			}
 			edited = (Provider) event.getObject();
 			edited.setModificationUser(getUsername());
-			if(!edited.getMail().trim().isEmpty()) {
-				if(!Pattern.matches(Configuration.validMail, edited.getMail().trim())) {
-					addMessage("Debes escribir una dirección de correo válida", true);
-					return;
-				}
-			}
+			
 			StringBuffer buff = new StringBuffer();
 			if(!edited.getChips().isEmpty()) {
 				chips = edited.getChips();
@@ -130,6 +125,29 @@ public class ProviderList extends Main implements Serializable {
 			buff.deleteCharAt(buff.length()-1);
 			System.out.println(buff);
 			edited.setList(buff.toString());
+			
+			buff = new StringBuffer();
+			if(!edited.getMailChips().isEmpty()) {
+				chips = edited.getMailChips();
+				for(String s:chips) {
+					if(!Pattern.matches(Configuration.validMail, s.trim())) {
+						addMessage("Una dirección de correo electrónico no es válida", true);
+						return;
+					}
+					buff.append(s+",");
+				}
+			}
+			buff.deleteCharAt(buff.length()-1);
+			System.out.println(buff);
+			edited.setMail(buff.toString());
+			
+//			if(!edited.getMail().trim().isEmpty()) {
+//				if(!Pattern.matches(Configuration.validMail, edited.getMail().trim())) {
+//					addMessage("Debes escribir una dirección de correo válida", true);
+//					return;
+//				}
+//			}
+			
 			if(!ObjectService.save(edited)) {
 				addMessage("Ocurrió un error al editar al proveedor", true);
 			}

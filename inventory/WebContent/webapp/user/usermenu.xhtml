@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+      
+      
+      
+	<ui:define name="title">
+		Usuarios
+	</ui:define>
+    
+    <ui:define name="content">
+		<h:form>
+			<p:dataTable value="${userList.list}" var="v"
+				rowKey="#{v.id}" paginator="true" rowsPerPageTemplate="#{Constants.rowsPerPage}" rows="#{Constants.rows}" filteredValue="#{userList.filtered}">
+				<p:column headerText="Nombre">
+					<h:outputText value="#{ empty(v.name)?'Sin nombre':v.name}" />
+				</p:column>
+				<p:column headerText="Usuario">
+					#{v.username}
+				</p:column>
+				<p:column headerText="Activo">
+					<h:outputText value="#{ (v.active)?'Activo':'Inactivo'}" />
+				</p:column>
+				
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+	
+	<ui:define name="buttonbar">
+		<p:button outcome="add" value="Agregar" icon="ui-icon-plusthick"/>
+	</ui:define>
+
+</ui:composition>

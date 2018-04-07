@@ -13,13 +13,14 @@ import com.neox.inventory.util.HibernateUtil;
 
 public class MenuService {
 	
-	public static List<Menu> getById(Integer id) {
+	public static List<Menu> getById(Integer idUser) {
 		List<Menu> list = new ArrayList<Menu>();
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query<Menu> q = session.createQuery("from Menu");
+			Query<Menu> q = session.createQuery("from Menu where id in (select um.idMenu from UserMenu um where um.idUser = :idUser) or value is null");
+			q.setParameter("idUser", idUser);
 			list = q.list();
 			
 			tx.commit();

@@ -44,6 +44,8 @@ public class Provider implements Serializable {
 	
 	@Transient
 	private List<String> chips;
+	@Transient
+	private List<String> mailChips;
 	
 	public Provider() {}
 
@@ -186,5 +188,21 @@ public class Provider implements Serializable {
 				chips.add(s);
 			}
 		}
+		if(mail != null) {
+			String[] array = mail.split(",");
+			mailChips = new ArrayList<String>();
+			for(String s:array) {
+				mailChips.add(s);
+			}
+		}
+		
+	}
+
+	public List<String> getMailChips() {
+		return mailChips;
+	}
+
+	public void setMailChips(List<String> mailChips) {
+		this.mailChips = mailChips;
 	}
 }

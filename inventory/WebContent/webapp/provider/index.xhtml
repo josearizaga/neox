@@ -39,11 +39,15 @@
 					</p:cellEditor>
 				</p:column>
 				
-				<p:column headerText="Correo" width="200">
+				<p:column headerText="Correo" width="250">
 					<p:cellEditor>
-						<f:facet name="output"><h:outputText value="#{v.mail}" /></f:facet>
+						<f:facet name="output">
+							<div style="overflow: scroll">
+								<h:outputText value="#{v.mail}" />
+							</div>
+						</f:facet>
 						<f:facet name="input">
-							<p:inputText  value="#{v.mail}" style="width:100%" maxlength="#{Constants.MAX_MAIL_INPUT}"/>
+							<p:chips  value="#{v.mailChips}" style="width:100%" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -66,7 +70,11 @@
 				</p:column>
 				<p:column headerText="Materiales" width="250">
 					<p:cellEditor>
-						<f:facet name="output"><h:outputText value="#{v.list}" /></f:facet>
+						<f:facet name="output">
+							<div style="overflow: scroll">
+								<h:outputText value="#{v.list}" />
+							</div>
+						</f:facet>
 						<f:facet name="input">
 							<p:chips  value="#{v.chips}" style="width:100%" />
 						</f:facet>
