@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+      
+      
+      
+	<ui:define name="title">
+		Salidas de material
+	</ui:define>
+	<ui:define name="content">
+		<h:form>
+			<p:wizard flowListener="#{outcome.onFlowProcess}" backLabel="Regresar" nextLabel="Siguiente">
+				<p:tab id="material" title="Material">
+					<p:panelGrid columns="2" style="width:100%">
+						Material
+						<p:selectOneMenu filter="true" filterMatchMode="contains" value="#{outcome.idMaterial}" 
+							required="true" requiredMessage="Debes seleccionar el material">
+							<f:selectItem itemLabel="Selecciona el material" />
+							<f:selectItems value="#{outcome.materials}" var="o" itemLabel="#{o.material}" itemValue="#{o.id}"/>
+						</p:selectOneMenu>
+					</p:panelGrid>
+				</p:tab>
+				<p:tab id="location" title="Ubicaciones">
+					<p:panelGrid columns="2" style="width:100%">
+						Ubicacion
+						<p:selectOneMenu filter="true" filterMatchMode="contains" value="#{outcome.idInventory}" 
+							required="true" requiredMessage="Debes seleccionar la ubicacion">
+							<f:selectItem itemLabel="Selecciona la ubicación" />
+							<f:selectItems value="#{outcome.inventoryList}" var="o" itemLabel="#{o.location}" itemValue="#{o.id}"/>
+						</p:selectOneMenu>
+					</p:panelGrid>
+				</p:tab>
+				<p:tab id="user" title="Usuario">
+					<p:panelGrid columns="2" style="width:100%">
+						Usuario
+						<p:selectOneMenu filter="true" filterMatchMode="contains" value="#{outcome.idUser}" 
+							required="true" requiredMessage="Debes seleccionar al usuario">
+							<f:selectItem itemLabel="Selecciona al usuario" />
+							<f:selectItems value="#{outcome.users}" var="o" itemLabel="#{o.name}" itemValue="#{o.id}"/>
+						</p:selectOneMenu>
+					</p:panelGrid>
+				</p:tab>
+				<p:tab id="qty" title="Cantidad">
+					<p:panelGrid columns="2" style="width:100%">
+						Cantidad
+						<p:spinner value="#{outcome.qty}" min="0" max="#{outcome.inventory.qty}" 
+							required="true" requiredMessage="Debes escribir la cantidad"/>
+						Tipo
+						<p:inputSwitch offLabel="Cambio" onLabel="Prestamo" value="#{outcome.value}"></p:inputSwitch>
+					</p:panelGrid>
+				</p:tab>
+				
+				<p:tab id="confirm" title="Confirmar">
+					<p:panelGrid columns="2" style="width:100%">
+						Material:
+						<h:outputText value="#{outcome.material.material}" />
+						Ubicación:
+						<h:outputText value="#{outcome.location.location}" />
+						Precio unitario:
+						<h:outputText value="#{outcome.inventory.price}">
+							<f:convertNumber type="currency"/>
+						</h:outputText>
+					</p:panelGrid>
+					<br />
+					<p:commandButton value="Guardar" action="#{outcome.save()}"/>
+				</p:tab>
+				
+			</p:wizard>
+		</h:form>
+	</ui:define>
+</ui:composition>

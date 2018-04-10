@@ -22,42 +22,42 @@ public class Menu extends Main implements Serializable {
 	List<com.neox.inventory.model.menu.Menu> list;
 
 	public MenuModel getMenuModel() {
-		if(menuModel == null) {
-			menuModel = new DefaultMenuModel();
-			System.out.println("**************************Generando Menu**************************");
-			/*
-			DefaultMenuItem item = new DefaultMenuItem();
-			item.setValue("Inicio");
-			item.setIcon("ui-icon-gear");
-			item.setOutcome("/index");
-			DefaultSubMenu submenu = new DefaultSubMenu("Enlaces");
-			submenu.addElement(item);
-			
-			DefaultSubMenu _sub = new DefaultSubMenu("Materiales");
-			item = new DefaultMenuItem();
-			item.setValue("Entradas");
-			item.setIcon("ui-icon-wrench");
-			item.setOutcome("/webapp/income/index");
-			_sub.addElement(item);
-			submenu.addElement(_sub);
-			
-			menuModel.addElement(submenu);
-			*/
-			if(isAdmin()) {
-				list = MenuService.getAll();
-			} else {
-				list = MenuService.getById(getUserId());
-			}
-			System.out.println(list);
-			for(com.neox.inventory.model.menu.Menu menu:list) {
-				if(menu.getIdMenu().intValue() == 0) {
-					DefaultSubMenu submenu = new DefaultSubMenu(menu.getLabel());
-					buildSubMenu(submenu, menu.getId());
-					menuModel.addElement(submenu);
-				}
-			}
-		}
-		
+//		if(menuModel == null) {
+//			menuModel = new DefaultMenuModel();
+//			System.out.println("**************************Generando Menu**************************");
+//			/*
+//			DefaultMenuItem item = new DefaultMenuItem();
+//			item.setValue("Inicio");
+//			item.setIcon("ui-icon-gear");
+//			item.setOutcome("/index");
+//			DefaultSubMenu submenu = new DefaultSubMenu("Enlaces");
+//			submenu.addElement(item);
+//			
+//			DefaultSubMenu _sub = new DefaultSubMenu("Materiales");
+//			item = new DefaultMenuItem();
+//			item.setValue("Entradas");
+//			item.setIcon("ui-icon-wrench");
+//			item.setOutcome("/webapp/income/index");
+//			_sub.addElement(item);
+//			submenu.addElement(_sub);
+//			
+//			menuModel.addElement(submenu);
+//			*/
+//			if(isAdmin()) {
+//				list = MenuService.getAll();
+//			} else {
+//				list = MenuService.getById(getUserId());
+//			}
+//			System.out.println(list);
+//			for(com.neox.inventory.model.menu.Menu menu:list) {
+//				if(menu.getIdMenu().intValue() == 0) {
+//					DefaultSubMenu submenu = new DefaultSubMenu(menu.getLabel());
+//					buildSubMenu(submenu, menu.getId());
+//					menuModel.addElement(submenu);
+//				}
+//			}
+//		}
+//		
 		return menuModel;
 	}
 	

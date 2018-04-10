@@ -17,6 +17,7 @@ import com.neox.inventory.model.material.Material;
 import com.neox.inventory.model.material.UOM;
 import com.neox.inventory.model.provider.Provider;
 import com.neox.inventory.model.user.User;
+import com.neox.inventory.model.user.UserView;
 import com.neox.inventory.service.AreaService;
 import com.neox.inventory.service.CategoryService;
 import com.neox.inventory.service.InventoryViewService;
@@ -24,6 +25,7 @@ import com.neox.inventory.service.LocationService;
 import com.neox.inventory.service.MaterialService;
 import com.neox.inventory.service.ProviderService;
 import com.neox.inventory.service.UOMService;
+import com.neox.inventory.service.UserService;
 import com.neox.inventory.service.ValidationService;
 
 
@@ -99,6 +101,10 @@ public class Main {
 	
 	public List<Validation> getValidations() {
 		return ValidationService.getList();
+	}
+	
+	public List<UserView> getUsers() {
+		return UserService.getList();
 	}
 	
 	public String redirect(String direction) {
