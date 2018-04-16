@@ -111,7 +111,9 @@ public class MaterialMovementWS extends Auth {
 		ObjectMapper mapper = MapperUtil.getMapper();
 		Map<String,Object> map = new HashMap<>();
 		
-		List<MaterialMovementView> list = MaterialMovementViewService.getList();
+		Status pendiente = StatusService.byName("Pendiente");
+		
+		List<MaterialMovementView> list = MaterialMovementViewService.byStatus(pendiente.getId());
 		if(list.isEmpty()) {
 			map.put("code", "204");
 		} else {
