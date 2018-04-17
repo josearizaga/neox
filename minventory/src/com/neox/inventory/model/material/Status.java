@@ -22,9 +22,10 @@ public class Status {
 	@GeneratedValue(strategy = IDENTITY)
 	private Integer id;
 	private String status;
+	@Type(type="date")
 	@Column(name = "creation_date")
 	private Date creationDate;
-	@Type(type="date")
+	@Type(type="time")
 	@Column(name = "creation_time")
 	private Date creationTime;
 	private boolean active;
