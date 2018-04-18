@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template/page-tamplate.xhtml">
+      
+      
+      
+	<ui:define name="title">
+		Usuarios
+	</ui:define>
+	<ui:define name="content">
+		<h:form>
+			<p:panel style="width:100%">
+				<p:pickList value="#{userData.menuList}" var="m" itemLabel="#{m.value}" itemValue="#{m.id}"
+					responsive="true" showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains">
+					<p:ajax event="transfer" listener="#{userData.onTransfer}" />
+					
+					 <f:facet name="sourceCaption">Disponibles</f:facet>
+		        	<f:facet name="targetCaption">Asignados</f:facet>
+				</p:pickList>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

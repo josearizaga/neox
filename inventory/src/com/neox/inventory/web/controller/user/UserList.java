@@ -21,6 +21,7 @@ public class UserList extends Main implements Serializable {
 	
 	private List<UserView> list;
 	private List<UserView> filtered;
+	private UserView selected;
 	
 	public UserList() {}
 
@@ -66,5 +67,19 @@ public class UserList extends Main implements Serializable {
 			}
 			uv.setName(uv.getFirstname() + " " + uv.getLastname());
     }
+
+	public UserView getSelected() {
+		return selected;
+	}
+
+	public void setSelected(UserView selected) {
+		System.out.println(selected);
+		this.selected = selected;
+	}
+	
+	public String update() {
+		setAttribute("selectedUserView", selected);
+		return "menu" + redirect;
+	}
 
 }

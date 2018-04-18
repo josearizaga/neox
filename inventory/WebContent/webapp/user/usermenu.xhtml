@@ -25,7 +25,11 @@
 				<p:column headerText="Activo">
 					<h:outputText value="#{ (v.active)?'Activo':'Inactivo'}" />
 				</p:column>
-				
+				<p:column style="width:32px;text-align: center">
+		             <p:commandButton icon="ui-icon-pencil" title="View" action="#{userList.update}">
+		                <f:setPropertyActionListener value="#{v}" target="#{userList.selected}" />
+		            </p:commandButton>
+		        </p:column>
 			</p:dataTable>
 		</h:form>
 
