@@ -91,6 +91,7 @@ public class UserView implements Serializable {
 	}
 
 	public void setPasswd(String passwd) {
+		passwd.toUpperCase();
 		this.passwd = passwd;
 	}
 }

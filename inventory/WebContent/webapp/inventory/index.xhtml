@@ -45,22 +45,14 @@
 					<h:outputText value="#{v.location}" />
 				</p:column>
 				
-				<p:column headerText="Proveedor" filterBy="#{v.location}" sortBy="#{v.location}" filterMatchMode="contains" width="200">
-					<h:outputText value="#{v.provider}" />
-				</p:column>
-				
 				<p:column headerText="Disponibles" width="50" >
-					<div class="number">
 						<h:outputText value="#{v.qty}" />
-					</div>								
 				</p:column>
 				
 				<p:column headerText="Mínimo" width="50">
 					<p:cellEditor>
 						<f:facet name="output">
-							<div class="number">
 								<h:outputText value="#{v.minQty}" />
-							</div>								
 						</f:facet>
 						<f:facet name="input">
 							<p:inputNumber min="0" value="#{v.minQty}" />
@@ -72,9 +64,7 @@
 				<p:column headerText="Reorden" width="50">
 					<p:cellEditor>
 						<f:facet name="output">
-							<div class="number">
-								<h:outputText value="#{v.orderPoint}" />
-							</div>								
+								<h:outputText value="#{v.orderPoint}" />					
 						</f:facet>
 						<f:facet name="input">
 							<p:inputNumber min="0" value="#{v.orderPoint}" />
