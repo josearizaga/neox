@@ -7,7 +7,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import com.neox.inventory.model.report.InventoryReportView;
-import com.neox.inventory.service.InventoryViewService;
 import com.neox.inventory.service.ReportService;
 import com.neox.inventory.web.controller.Main;
 
@@ -17,6 +16,10 @@ public class InventoryReport extends Main implements Serializable {
 	
 	private List<InventoryReportView> list;
 	private List<InventoryReportView> filtered;
+	
+
+	
+	
 	
 	public InventoryReport() {}
 

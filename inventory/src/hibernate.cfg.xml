@@ -54,6 +54,7 @@
   <mapping class="com.neox.inventory.model.provider.ProviderContact"/>
   <!-- Report -->
   <mapping class="com.neox.inventory.model.report.InventoryReportView"/>
+  <mapping class="com.neox.inventory.model.report.VistaSolicitudes"/>
   <!-- User -->
   <mapping class="com.neox.inventory.model.user.User"/>
   <mapping class="com.neox.inventory.model.user.UserInfo"/>

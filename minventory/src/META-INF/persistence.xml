@@ -1,5 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="minventory">
+		<class>com.neox.inventory.model.area.Area</class>
+		<class>com.neox.inventory.model.area.AreaMaterial</class>
+		<class>com.neox.inventory.model.area.AreaMaterialView</class>
+		<class>com.neox.inventory.model.area.AreaUser</class>
+		<class>com.neox.inventory.model.area.AreaUserView</class>
+		<class>com.neox.inventory.model.area.Location</class>
+		<class>com.neox.inventory.model.area.Validation</class>
+		<class>com.neox.inventory.model.material.Category</class>
+		<class>com.neox.inventory.model.material.Header</class>
+		<class>com.neox.inventory.model.material.Income</class>
+		<class>com.neox.inventory.model.material.Inventory</class>
+		<class>com.neox.inventory.model.material.InventoryHistory</class>
+		<class>com.neox.inventory.model.material.InventoryView</class>
+		<class>com.neox.inventory.model.material.LogMovement</class>
+		<class>com.neox.inventory.model.material.Material</class>
+		<class>com.neox.inventory.model.material.MaterialMovement</class>
+		<class>com.neox.inventory.model.material.MaterialMovementFullView</class>
+		<class>com.neox.inventory.model.material.MaterialMovementUserView</class>
+		<class>com.neox.inventory.model.material.MaterialMovementView</class>
+		<class>com.neox.inventory.model.material.MaterialPrice</class>
+		<class>com.neox.inventory.model.material.MaterialProviderPrice</class>
+		<class>com.neox.inventory.model.material.MaterialProviderPriceView</class>
+		<class>com.neox.inventory.model.material.MaterialView</class>
+		<class>com.neox.inventory.model.material.Movement</class>
+		<class>com.neox.inventory.model.material.Outcome</class>
+		<class>com.neox.inventory.model.material.OutcomeView</class>
+		<class>com.neox.inventory.model.material.Reorder</class>
+		<class>com.neox.inventory.model.material.Status</class>
+		<class>com.neox.inventory.model.material.Transfer</class>
+		<class>com.neox.inventory.model.material.UOM</class>
+		<class>com.neox.inventory.model.menu.Menu</class>
+		<class>com.neox.inventory.model.menu.UserMenu</class>
+		<class>com.neox.inventory.model.provider.Provider</class>
+		<class>com.neox.inventory.model.provider.ProviderContact</class>
+		<class>com.neox.inventory.model.report.InventoryReportView</class>
+		<class>com.neox.inventory.model.user.User</class>
+		<class>com.neox.inventory.model.user.UserInfo</class>
+		<class>com.neox.inventory.model.user.UserView</class>
 	</persistence-unit>
 </persistence>

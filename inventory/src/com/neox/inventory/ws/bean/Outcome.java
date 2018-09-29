@@ -45,8 +45,14 @@ public class Outcome implements Serializable {
 	
 	public boolean hasShowElements() {
 		for(MaterialMovementFullView view:movementFullViewList) {
-			if(view.getQty() > 0) {
-				return true;
+			if(view.getQty() > 0 ) {
+				switch ( view.getIdMovement() ) {
+					case 4:
+						if ( view.getIdStatus() == 4 || view.getIdStatus() == 5  ) break;
+
+					default: return true;
+				}
+				
 			}
 		}
 		return false;

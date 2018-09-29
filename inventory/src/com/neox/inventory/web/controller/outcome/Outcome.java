@@ -38,7 +38,16 @@ public class Outcome extends Main implements Serializable {
 	private Double qty;
 	private Inventory inventory;
 	private boolean value;
+	private String workOrder;
 	
+	public String getWorkOrder() {
+		return workOrder;
+	}
+
+	public void setWorkOrder(String workOrder) {
+		this.workOrder = workOrder;
+	}
+
 	public Outcome() {}
 	
 	public String onFlowProcess(FlowEvent event) {
@@ -123,7 +132,7 @@ public class Outcome extends Main implements Serializable {
 		mm.setMaterial(m);
 		mm.setPosition(1);
 		mm.setQty(qty);
-		mm.setWorkOrder("SO");
+		mm.setWorkOrder("WEB:"+workOrder);
 		
 		if(!ObjectService.save(mm)) {
 			addMessage("Ocurrió un error al guardar los datos", true);

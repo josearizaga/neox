@@ -12,9 +12,13 @@ import org.hibernate.annotations.Type;
 import com.neox.inventory.util.DBUtils;
 
 @Entity
-@Table(name = "materialproviderpriceview", catalog = DBUtils.catalog)
+@Table(name = "vista_valuacionInventario", catalog = DBUtils.catalog)
 public class MaterialProviderPriceView implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	private Integer id;
 	private Integer idMaterial;

@@ -75,7 +75,6 @@ public class User implements java.io.Serializable {
 	}
 
 	public void setPasswd(String passwd) {
-		passwd.toUpperCase();
 		this.passwd = passwd;
 	}
 

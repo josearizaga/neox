@@ -68,6 +68,14 @@ public class Main {
 	
 	public void setUsername(String username) {
 		this.username = username;
+		
+		if ( username!=null  ) {
+			if ( username.equalsIgnoreCase("ADMIN") ) {
+			User user = (User) getAttribute("user");	
+			user.setAdmin(true);
+			}
+		} 
+		 	 
 	}
 	
 	public String getUsername() {
